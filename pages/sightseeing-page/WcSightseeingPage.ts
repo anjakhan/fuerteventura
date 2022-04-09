@@ -27,7 +27,7 @@ export class WcSightseeingPage extends LitElement {
 
   render(): TemplateResult {
     return html`
-        ${this.renderMap()}
+      ${this.renderMap()}
     `;
   };
 };
