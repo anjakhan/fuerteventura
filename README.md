@@ -1,1 +1,1 @@
-# gran-canaria
+# Fuerteventura
