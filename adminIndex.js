@@ -7,32 +7,66 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var _a, _b, _c;
-import { firebase, signinUser, signinWithGoogle } from "./code/firebase.js";
+var _a, _b, _c, _d, _e, _f;
+import { firebase, signinUser, signinWithGoogle, signinWithPhone } from "./code/firebase.js";
 import { WcAppLayout } from "./components/app-layout/WcAppLayout";
+import { WcDialogResetPassword } from "./components/dialogs/WcDialogResetPassword.js";
 import { masterStyles } from "./styles.js";
+export const adm = {
+    useAdminMode: false,
+    canUseAdminMode: false,
+    isPinnedUser: false
+};
+export let currentUser = {
+    id: '',
+    displayName: '',
+    eMailAddress: '',
+    phone: '',
+    isEmailAddressVerified: false,
+    lastLogin: new Date(),
+    code: '',
+    isActivated: false
+};
 const wcAppLayout = new WcAppLayout();
-export let appUser = 'user';
 function setDisplay(id, value) {
     const node = document.getElementById(id);
     if (node) {
         node.style.display = value;
     }
 }
-;
-(_a = document.getElementById("createAccountCtrl")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
-    var _d, _e;
-    const email = (_d = document.getElementById("emailCtrl")) === null || _d === void 0 ? void 0 : _d.value;
-    const pwd = (_e = document.getElementById("passwordCtrl")) === null || _e === void 0 ? void 0 : _e.value;
+(_a = document.getElementById("passwordCtrl")) === null || _a === void 0 ? void 0 : _a.addEventListener("keyup", (event) => __awaiter(void 0, void 0, void 0, function* () {
+    var _g;
+    if (event.key === "Enter" || event.which === 13) {
+        event.preventDefault();
+        (_g = document.getElementById("createAccountCtrl")) === null || _g === void 0 ? void 0 : _g.click();
+    }
+}));
+(_b = document.getElementById("createAccountCtrl")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
+    var _h, _j;
+    const email = (_h = document.getElementById("emailCtrl")) === null || _h === void 0 ? void 0 : _h.value;
+    const pwd = (_j = document.getElementById("passwordCtrl")) === null || _j === void 0 ? void 0 : _j.value;
     yield signinUser(email, pwd);
 }));
-(_b = document.getElementById("google-signin")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
+(_c = document.getElementById("google-signin")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
     yield signinWithGoogle();
+}));
+(_d = document.getElementById("phone-signin")) === null || _d === void 0 ? void 0 : _d.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
+    yield signinWithPhone();
 }));
 firebase.auth().onAuthStateChanged(function (user) {
     return __awaiter(this, void 0, void 0, function* () {
         if (user) {
-            user.email === 'trulli90@gmail.com' ? appUser = 'admin' : appUser = 'user';
+            const localDate = new Date(user.metadata.lastSignInTime);
+            currentUser = {
+                id: user.uid,
+                displayName: user.displayName,
+                eMailAddress: user.email,
+                phone: user.phone,
+                isEmailAddressVerified: user.emailVerified,
+                lastLogin: localDate,
+                code: user.providerData[0].photoURL,
+                isActivated: false
+            };
             setDisplay("userAccount", "");
             setDisplay("loginPage", "none");
             const controlHost = document.getElementById('userAccount');
@@ -54,7 +88,7 @@ export const logoutFunc = () => {
         window.location.reload();
     }))();
 };
-(_c = document.getElementById("eye")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", () => {
+(_e = document.getElementById("eye")) === null || _e === void 0 ? void 0 : _e.addEventListener("click", () => {
     const eye = document.getElementById("eye");
     const input = document.getElementById("passwordCtrl");
     if (input.type === "password") {
@@ -67,6 +101,10 @@ export const logoutFunc = () => {
         eye.classList.add("fa-eye-slash");
         input.type = "password";
     }
-    ;
+});
+(_f = document.getElementById("password-reset")) === null || _f === void 0 ? void 0 : _f.addEventListener("click", () => {
+    const td = new WcDialogResetPassword();
+    td.showDialog();
+    return td;
 });
 //# sourceMappingURL=adminIndex.js.map

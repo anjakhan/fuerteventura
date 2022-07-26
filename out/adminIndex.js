@@ -1,4 +1,4 @@
-var __awaiter$5 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+var __awaiter$1 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -9,12 +9,12 @@ var __awaiter$5 = (undefined && undefined.__awaiter) || function (thisArg, _argu
 };
 const firebase = window.firebase;
 const config$1 = {
-    apiKey: "AIzaSyBUbyQiqE7TSAS2J5iIVII1Z99tKdd0AuE",
-    authDomain: "fuerteventura-d4e75.firebaseapp.com",
-    projectId: "fuerteventura-d4e75",
-    storageBucket: "fuerteventura-d4e75.appspot.com",
-    messagingSenderId: "378393506142",
-    appId: "1:378393506142:web:4d16e60264d0388a685fcf"
+    apiKey: "AIzaSyCDUKsrnycenQiUaqr3fQ2cmj4bnhOtta4",
+    authDomain: "phone-auth-test-35d0b.firebaseapp.com",
+    projectId: "phone-auth-test-35d0b",
+    storageBucket: "phone-auth-test-35d0b.appspot.com",
+    messagingSenderId: "78922657454",
+    appId: "1:78922657454:web:ce7cc4d2823e6570dbc73f"
 };
 firebase.initializeApp(config$1);
 const checkErrorCode = (errorCode) => {
@@ -41,7 +41,7 @@ const checkErrorCode = (errorCode) => {
     }
 };
 function signinWithGoogle() {
-    return __awaiter$5(this, void 0, void 0, function* () {
+    return __awaiter$1(this, void 0, void 0, function* () {
         const provider = new firebase.auth.GoogleAuthProvider();
         provider.setCustomParameters({ prompt: 'select_account' });
         try {
@@ -56,7 +56,7 @@ function signinWithGoogle() {
     });
 }
 function signinUser(email, password) {
-    return __awaiter$5(this, void 0, void 0, function* () {
+    return __awaiter$1(this, void 0, void 0, function* () {
         try {
             const userCredential = yield firebase.auth().signInWithEmailAndPassword(email, password);
             return userCredential;
@@ -68,66 +68,45 @@ function signinUser(email, password) {
         }
     });
 }
-const createTravelDocument = (traveldoc) => {
-    firestore.collection("fuerte").add({
-        id: '',
-        headline: traveldoc.headline,
-        story: traveldoc.story,
-        foldername: traveldoc.date + '_' + traveldoc.foldername,
-        date: traveldoc.date,
-        location: traveldoc.location,
-        popup: traveldoc.popup,
-        image: traveldoc.image
-    })
-        .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
-        alert('Fotostory created');
-        firestore.collection('fuerte').doc(`${docRef.id}`).set({
-            id: docRef.id
-        }, { merge: true });
-    })
-        .catch((error) => {
-        console.error("Error adding document: ", error);
+function sendPasswordResetMail(email = firebase.auth().currentUser.email) {
+    return __awaiter$1(this, void 0, void 0, function* () {
+        try {
+            yield firebase.auth().sendPasswordResetEmail(email);
+        }
+        catch (error) {
+            const errorCode = error.code;
+            console.log(errorCode);
+            alert(error.message);
+            throw error;
+        }
     });
-};
-const getTravelDocs = () => {
-    const docs = firestore.collection("fuerte").get()
-        .then((querySnapshot) => {
-        return querySnapshot.docs.map((doc) => doc.data());
-    });
-    return docs;
-};
-const uploadImage = (file, foldername) => {
-    const storage = firebase.storage().ref(`${foldername}/${file.name}`);
-    storage.put(file);
-};
-const firestore = firebase.firestore();
+}
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-var t$2,i$4,s$4,e$3;const o$6=globalThis.trustedTypes,l$2=o$6?o$6.createPolicy("lit-html",{createHTML:t=>t}):void 0,n$5=`lit$${(Math.random()+"").slice(9)}$`,h$2="?"+n$5,r$2=`<${h$2}>`,u=document,c=(t="")=>u.createComment(t),d=t=>null===t||"object"!=typeof t&&"function"!=typeof t,v=Array.isArray,a$2=t=>{var i;return v(t)||"function"==typeof(null===(i=t)||void 0===i?void 0:i[Symbol.iterator])},f=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,_=/-->/g,m=/>/g,p=/>|[ 	\n\r](?:([^\s"'>=/]+)([ 	\n\r]*=[ 	\n\r]*(?:[^ 	\n\r"'`<>=]|("|')|))|$)/g,$=/'/g,g=/"/g,y=/^(?:script|style|textarea)$/i,b=t=>(i,...s)=>({_$litType$:t,strings:i,values:s}),T=b(1),w=Symbol.for("lit-noChange"),A=Symbol.for("lit-nothing"),P=new WeakMap,V=(t,i,s)=>{var e,o;const l=null!==(e=null==s?void 0:s.renderBefore)&&void 0!==e?e:i;let n=l._$litPart$;if(void 0===n){const t=null!==(o=null==s?void 0:s.renderBefore)&&void 0!==o?o:null;l._$litPart$=n=new C(i.insertBefore(c(),t),t,void 0,s);}return n.I(t),n},E=u.createTreeWalker(u,129,null,!1),M=(t,i)=>{const s=t.length-1,e=[];let o,h=2===i?"<svg>":"",u=f;for(let i=0;i<s;i++){const s=t[i];let l,c,d=-1,v=0;for(;v<s.length&&(u.lastIndex=v,c=u.exec(s),null!==c);)v=u.lastIndex,u===f?"!--"===c[1]?u=_:void 0!==c[1]?u=m:void 0!==c[2]?(y.test(c[2])&&(o=RegExp("</"+c[2],"g")),u=p):void 0!==c[3]&&(u=p):u===p?">"===c[0]?(u=null!=o?o:f,d=-1):void 0===c[1]?d=-2:(d=u.lastIndex-c[2].length,l=c[1],u=void 0===c[3]?p:'"'===c[3]?g:$):u===g||u===$?u=p:u===_||u===m?u=f:(u=p,o=void 0);const a=u===p&&t[i+1].startsWith("/>")?" ":"";h+=u===f?s+r$2:d>=0?(e.push(l),s.slice(0,d)+"$lit$"+s.slice(d)+n$5+a):s+n$5+(-2===d?(e.push(void 0),i):a);}const c=h+(t[s]||"<?>")+(2===i?"</svg>":"");return [void 0!==l$2?l$2.createHTML(c):c,e]};class N{constructor({strings:t,_$litType$:i},s){let e;this.parts=[];let l=0,r=0;const u=t.length-1,d=this.parts,[v,a]=M(t,i);if(this.el=N.createElement(v,s),E.currentNode=this.el.content,2===i){const t=this.el.content,i=t.firstChild;i.remove(),t.append(...i.childNodes);}for(;null!==(e=E.nextNode())&&d.length<u;){if(1===e.nodeType){if(e.hasAttributes()){const t=[];for(const i of e.getAttributeNames())if(i.endsWith("$lit$")||i.startsWith(n$5)){const s=a[r++];if(t.push(i),void 0!==s){const t=e.getAttribute(s.toLowerCase()+"$lit$").split(n$5),i=/([.?@])?(.*)/.exec(s);d.push({type:1,index:l,name:i[2],strings:t,ctor:"."===i[1]?I:"?"===i[1]?L$1:"@"===i[1]?R:H});}else d.push({type:6,index:l});}for(const i of t)e.removeAttribute(i);}if(y.test(e.tagName)){const t=e.textContent.split(n$5),i=t.length-1;if(i>0){e.textContent=o$6?o$6.emptyScript:"";for(let s=0;s<i;s++)e.append(t[s],c()),E.nextNode(),d.push({type:2,index:++l});e.append(t[i],c());}}}else if(8===e.nodeType)if(e.data===h$2)d.push({type:2,index:l});else {let t=-1;for(;-1!==(t=e.data.indexOf(n$5,t+1));)d.push({type:7,index:l}),t+=n$5.length-1;}l++;}}static createElement(t,i){const s=u.createElement("template");return s.innerHTML=t,s}}function S$1(t,i,s=t,e){var o,l,n,h;if(i===w)return i;let r=void 0!==e?null===(o=s.Σi)||void 0===o?void 0:o[e]:s.Σo;const u=d(i)?void 0:i._$litDirective$;return (null==r?void 0:r.constructor)!==u&&(null===(l=null==r?void 0:r.O)||void 0===l||l.call(r,!1),void 0===u?r=void 0:(r=new u(t),r.T(t,s,e)),void 0!==e?(null!==(n=(h=s).Σi)&&void 0!==n?n:h.Σi=[])[e]=r:s.Σo=r),void 0!==r&&(i=S$1(t,r.S(t,i.values),r,e)),i}class k{constructor(t,i){this.l=[],this.N=void 0,this.D=t,this.M=i;}u(t){var i;const{el:{content:s},parts:e}=this.D,o=(null!==(i=null==t?void 0:t.creationScope)&&void 0!==i?i:u).importNode(s,!0);E.currentNode=o;let l=E.nextNode(),n=0,h=0,r=e[0];for(;void 0!==r;){if(n===r.index){let i;2===r.type?i=new C(l,l.nextSibling,this,t):1===r.type?i=new r.ctor(l,r.name,r.strings,this,t):6===r.type&&(i=new z(l,this,t)),this.l.push(i),r=e[++h];}n!==(null==r?void 0:r.index)&&(l=E.nextNode(),n++);}return o}v(t){let i=0;for(const s of this.l)void 0!==s&&(void 0!==s.strings?(s.I(t,s,i),i+=s.strings.length-2):s.I(t[i])),i++;}}class C{constructor(t,i,s,e){this.type=2,this.N=void 0,this.A=t,this.B=i,this.M=s,this.options=e;}setConnected(t){var i;null===(i=this.P)||void 0===i||i.call(this,t);}get parentNode(){return this.A.parentNode}get startNode(){return this.A}get endNode(){return this.B}I(t,i=this){t=S$1(this,t,i),d(t)?t===A||null==t||""===t?(this.H!==A&&this.R(),this.H=A):t!==this.H&&t!==w&&this.m(t):void 0!==t._$litType$?this._(t):void 0!==t.nodeType?this.$(t):a$2(t)?this.g(t):this.m(t);}k(t,i=this.B){return this.A.parentNode.insertBefore(t,i)}$(t){this.H!==t&&(this.R(),this.H=this.k(t));}m(t){const i=this.A.nextSibling;null!==i&&3===i.nodeType&&(null===this.B?null===i.nextSibling:i===this.B.previousSibling)?i.data=t:this.$(u.createTextNode(t)),this.H=t;}_(t){var i;const{values:s,_$litType$:e}=t,o="number"==typeof e?this.C(t):(void 0===e.el&&(e.el=N.createElement(e.h,this.options)),e);if((null===(i=this.H)||void 0===i?void 0:i.D)===o)this.H.v(s);else {const t=new k(o,this),i=t.u(this.options);t.v(s),this.$(i),this.H=t;}}C(t){let i=P.get(t.strings);return void 0===i&&P.set(t.strings,i=new N(t)),i}g(t){v(this.H)||(this.H=[],this.R());const i=this.H;let s,e=0;for(const o of t)e===i.length?i.push(s=new C(this.k(c()),this.k(c()),this,this.options)):s=i[e],s.I(o),e++;e<i.length&&(this.R(s&&s.B.nextSibling,e),i.length=e);}R(t=this.A.nextSibling,i){var s;for(null===(s=this.P)||void 0===s||s.call(this,!1,!0,i);t&&t!==this.B;){const i=t.nextSibling;t.remove(),t=i;}}}class H{constructor(t,i,s,e,o){this.type=1,this.H=A,this.N=void 0,this.V=void 0,this.element=t,this.name=i,this.M=e,this.options=o,s.length>2||""!==s[0]||""!==s[1]?(this.H=Array(s.length-1).fill(A),this.strings=s):this.H=A;}get tagName(){return this.element.tagName}I(t,i=this,s,e){const o=this.strings;let l=!1;if(void 0===o)t=S$1(this,t,i,0),l=!d(t)||t!==this.H&&t!==w,l&&(this.H=t);else {const e=t;let n,h;for(t=o[0],n=0;n<o.length-1;n++)h=S$1(this,e[s+n],i,n),h===w&&(h=this.H[n]),l||(l=!d(h)||h!==this.H[n]),h===A?t=A:t!==A&&(t+=(null!=h?h:"")+o[n+1]),this.H[n]=h;}l&&!e&&this.W(t);}W(t){t===A?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,null!=t?t:"");}}class I extends H{constructor(){super(...arguments),this.type=3;}W(t){this.element[this.name]=t===A?void 0:t;}}class L$1 extends H{constructor(){super(...arguments),this.type=4;}W(t){t&&t!==A?this.element.setAttribute(this.name,""):this.element.removeAttribute(this.name);}}class R extends H{constructor(){super(...arguments),this.type=5;}I(t,i=this){var s;if((t=null!==(s=S$1(this,t,i,0))&&void 0!==s?s:A)===w)return;const e=this.H,o=t===A&&e!==A||t.capture!==e.capture||t.once!==e.once||t.passive!==e.passive,l=t!==A&&(e===A||o);o&&this.element.removeEventListener(this.name,this,e),l&&this.element.addEventListener(this.name,this,t),this.H=t;}handleEvent(t){var i,s;"function"==typeof this.H?this.H.call(null!==(s=null===(i=this.options)||void 0===i?void 0:i.host)&&void 0!==s?s:this.element,t):this.H.handleEvent(t);}}class z{constructor(t,i,s){this.element=t,this.type=6,this.N=void 0,this.V=void 0,this.M=i,this.options=s;}I(t){S$1(this,t);}}null===(i$4=(t$2=globalThis).litHtmlPlatformSupport)||void 0===i$4||i$4.call(t$2,N,C),(null!==(s$4=(e$3=globalThis).litHtmlVersions)&&void 0!==s$4?s$4:e$3.litHtmlVersions=[]).push("2.0.0-rc.2");
+var t$2,i$4,s$4,e$3;const o$4=globalThis.trustedTypes,l$2=o$4?o$4.createPolicy("lit-html",{createHTML:t=>t}):void 0,n$5=`lit$${(Math.random()+"").slice(9)}$`,h$2="?"+n$5,r$2=`<${h$2}>`,u=document,c=(t="")=>u.createComment(t),d=t=>null===t||"object"!=typeof t&&"function"!=typeof t,v=Array.isArray,a$2=t=>{var i;return v(t)||"function"==typeof(null===(i=t)||void 0===i?void 0:i[Symbol.iterator])},f=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,_=/-->/g,m=/>/g,p=/>|[ 	\n\r](?:([^\s"'>=/]+)([ 	\n\r]*=[ 	\n\r]*(?:[^ 	\n\r"'`<>=]|("|')|))|$)/g,$=/'/g,g=/"/g,y=/^(?:script|style|textarea)$/i,b=t=>(i,...s)=>({_$litType$:t,strings:i,values:s}),T=b(1),w=Symbol.for("lit-noChange"),A=Symbol.for("lit-nothing"),P=new WeakMap,V=(t,i,s)=>{var e,o;const l=null!==(e=null==s?void 0:s.renderBefore)&&void 0!==e?e:i;let n=l._$litPart$;if(void 0===n){const t=null!==(o=null==s?void 0:s.renderBefore)&&void 0!==o?o:null;l._$litPart$=n=new C(i.insertBefore(c(),t),t,void 0,s);}return n.I(t),n},E=u.createTreeWalker(u,129,null,!1),M=(t,i)=>{const s=t.length-1,e=[];let o,h=2===i?"<svg>":"",u=f;for(let i=0;i<s;i++){const s=t[i];let l,c,d=-1,v=0;for(;v<s.length&&(u.lastIndex=v,c=u.exec(s),null!==c);)v=u.lastIndex,u===f?"!--"===c[1]?u=_:void 0!==c[1]?u=m:void 0!==c[2]?(y.test(c[2])&&(o=RegExp("</"+c[2],"g")),u=p):void 0!==c[3]&&(u=p):u===p?">"===c[0]?(u=null!=o?o:f,d=-1):void 0===c[1]?d=-2:(d=u.lastIndex-c[2].length,l=c[1],u=void 0===c[3]?p:'"'===c[3]?g:$):u===g||u===$?u=p:u===_||u===m?u=f:(u=p,o=void 0);const a=u===p&&t[i+1].startsWith("/>")?" ":"";h+=u===f?s+r$2:d>=0?(e.push(l),s.slice(0,d)+"$lit$"+s.slice(d)+n$5+a):s+n$5+(-2===d?(e.push(void 0),i):a);}const c=h+(t[s]||"<?>")+(2===i?"</svg>":"");return [void 0!==l$2?l$2.createHTML(c):c,e]};class N{constructor({strings:t,_$litType$:i},s){let e;this.parts=[];let l=0,r=0;const u=t.length-1,d=this.parts,[v,a]=M(t,i);if(this.el=N.createElement(v,s),E.currentNode=this.el.content,2===i){const t=this.el.content,i=t.firstChild;i.remove(),t.append(...i.childNodes);}for(;null!==(e=E.nextNode())&&d.length<u;){if(1===e.nodeType){if(e.hasAttributes()){const t=[];for(const i of e.getAttributeNames())if(i.endsWith("$lit$")||i.startsWith(n$5)){const s=a[r++];if(t.push(i),void 0!==s){const t=e.getAttribute(s.toLowerCase()+"$lit$").split(n$5),i=/([.?@])?(.*)/.exec(s);d.push({type:1,index:l,name:i[2],strings:t,ctor:"."===i[1]?I:"?"===i[1]?L:"@"===i[1]?R:H});}else d.push({type:6,index:l});}for(const i of t)e.removeAttribute(i);}if(y.test(e.tagName)){const t=e.textContent.split(n$5),i=t.length-1;if(i>0){e.textContent=o$4?o$4.emptyScript:"";for(let s=0;s<i;s++)e.append(t[s],c()),E.nextNode(),d.push({type:2,index:++l});e.append(t[i],c());}}}else if(8===e.nodeType)if(e.data===h$2)d.push({type:2,index:l});else {let t=-1;for(;-1!==(t=e.data.indexOf(n$5,t+1));)d.push({type:7,index:l}),t+=n$5.length-1;}l++;}}static createElement(t,i){const s=u.createElement("template");return s.innerHTML=t,s}}function S$1(t,i,s=t,e){var o,l,n,h;if(i===w)return i;let r=void 0!==e?null===(o=s.Σi)||void 0===o?void 0:o[e]:s.Σo;const u=d(i)?void 0:i._$litDirective$;return (null==r?void 0:r.constructor)!==u&&(null===(l=null==r?void 0:r.O)||void 0===l||l.call(r,!1),void 0===u?r=void 0:(r=new u(t),r.T(t,s,e)),void 0!==e?(null!==(n=(h=s).Σi)&&void 0!==n?n:h.Σi=[])[e]=r:s.Σo=r),void 0!==r&&(i=S$1(t,r.S(t,i.values),r,e)),i}class k{constructor(t,i){this.l=[],this.N=void 0,this.D=t,this.M=i;}u(t){var i;const{el:{content:s},parts:e}=this.D,o=(null!==(i=null==t?void 0:t.creationScope)&&void 0!==i?i:u).importNode(s,!0);E.currentNode=o;let l=E.nextNode(),n=0,h=0,r=e[0];for(;void 0!==r;){if(n===r.index){let i;2===r.type?i=new C(l,l.nextSibling,this,t):1===r.type?i=new r.ctor(l,r.name,r.strings,this,t):6===r.type&&(i=new z(l,this,t)),this.l.push(i),r=e[++h];}n!==(null==r?void 0:r.index)&&(l=E.nextNode(),n++);}return o}v(t){let i=0;for(const s of this.l)void 0!==s&&(void 0!==s.strings?(s.I(t,s,i),i+=s.strings.length-2):s.I(t[i])),i++;}}class C{constructor(t,i,s,e){this.type=2,this.N=void 0,this.A=t,this.B=i,this.M=s,this.options=e;}setConnected(t){var i;null===(i=this.P)||void 0===i||i.call(this,t);}get parentNode(){return this.A.parentNode}get startNode(){return this.A}get endNode(){return this.B}I(t,i=this){t=S$1(this,t,i),d(t)?t===A||null==t||""===t?(this.H!==A&&this.R(),this.H=A):t!==this.H&&t!==w&&this.m(t):void 0!==t._$litType$?this._(t):void 0!==t.nodeType?this.$(t):a$2(t)?this.g(t):this.m(t);}k(t,i=this.B){return this.A.parentNode.insertBefore(t,i)}$(t){this.H!==t&&(this.R(),this.H=this.k(t));}m(t){const i=this.A.nextSibling;null!==i&&3===i.nodeType&&(null===this.B?null===i.nextSibling:i===this.B.previousSibling)?i.data=t:this.$(u.createTextNode(t)),this.H=t;}_(t){var i;const{values:s,_$litType$:e}=t,o="number"==typeof e?this.C(t):(void 0===e.el&&(e.el=N.createElement(e.h,this.options)),e);if((null===(i=this.H)||void 0===i?void 0:i.D)===o)this.H.v(s);else {const t=new k(o,this),i=t.u(this.options);t.v(s),this.$(i),this.H=t;}}C(t){let i=P.get(t.strings);return void 0===i&&P.set(t.strings,i=new N(t)),i}g(t){v(this.H)||(this.H=[],this.R());const i=this.H;let s,e=0;for(const o of t)e===i.length?i.push(s=new C(this.k(c()),this.k(c()),this,this.options)):s=i[e],s.I(o),e++;e<i.length&&(this.R(s&&s.B.nextSibling,e),i.length=e);}R(t=this.A.nextSibling,i){var s;for(null===(s=this.P)||void 0===s||s.call(this,!1,!0,i);t&&t!==this.B;){const i=t.nextSibling;t.remove(),t=i;}}}class H{constructor(t,i,s,e,o){this.type=1,this.H=A,this.N=void 0,this.V=void 0,this.element=t,this.name=i,this.M=e,this.options=o,s.length>2||""!==s[0]||""!==s[1]?(this.H=Array(s.length-1).fill(A),this.strings=s):this.H=A;}get tagName(){return this.element.tagName}I(t,i=this,s,e){const o=this.strings;let l=!1;if(void 0===o)t=S$1(this,t,i,0),l=!d(t)||t!==this.H&&t!==w,l&&(this.H=t);else {const e=t;let n,h;for(t=o[0],n=0;n<o.length-1;n++)h=S$1(this,e[s+n],i,n),h===w&&(h=this.H[n]),l||(l=!d(h)||h!==this.H[n]),h===A?t=A:t!==A&&(t+=(null!=h?h:"")+o[n+1]),this.H[n]=h;}l&&!e&&this.W(t);}W(t){t===A?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,null!=t?t:"");}}class I extends H{constructor(){super(...arguments),this.type=3;}W(t){this.element[this.name]=t===A?void 0:t;}}class L extends H{constructor(){super(...arguments),this.type=4;}W(t){t&&t!==A?this.element.setAttribute(this.name,""):this.element.removeAttribute(this.name);}}class R extends H{constructor(){super(...arguments),this.type=5;}I(t,i=this){var s;if((t=null!==(s=S$1(this,t,i,0))&&void 0!==s?s:A)===w)return;const e=this.H,o=t===A&&e!==A||t.capture!==e.capture||t.once!==e.once||t.passive!==e.passive,l=t!==A&&(e===A||o);o&&this.element.removeEventListener(this.name,this,e),l&&this.element.addEventListener(this.name,this,t),this.H=t;}handleEvent(t){var i,s;"function"==typeof this.H?this.H.call(null!==(s=null===(i=this.options)||void 0===i?void 0:i.host)&&void 0!==s?s:this.element,t):this.H.handleEvent(t);}}class z{constructor(t,i,s){this.element=t,this.type=6,this.N=void 0,this.V=void 0,this.M=i,this.options=s;}I(t){S$1(this,t);}}null===(i$4=(t$2=globalThis).litHtmlPlatformSupport)||void 0===i$4||i$4.call(t$2,N,C),(null!==(s$4=(e$3=globalThis).litHtmlVersions)&&void 0!==s$4?s$4:e$3.litHtmlVersions=[]).push("2.0.0-rc.2");
 
 /**
  * @license
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const t$1=window.ShadowRoot&&(void 0===window.ShadyCSS||window.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,e$2=Symbol();class n$4{constructor(t,n){if(n!==e$2)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t;}get styleSheet(){return t$1&&void 0===this.t&&(this.t=new CSSStyleSheet,this.t.replaceSync(this.cssText)),this.t}toString(){return this.cssText}}const s$3=t=>new n$4(t+"",e$2),o$5=new Map,r$1=(t,...s)=>{const r=s.reduce(((e,s,o)=>e+(t=>{if(t instanceof n$4)return t.cssText;if("number"==typeof t)return t;throw Error(`Value passed to 'css' function must be a 'css' function result: ${t}. Use 'unsafeCSS' to pass non-literal values, but\n            take care to ensure page security.`)})(s)+t[o+1]),t[0]);let i=o$5.get(r);return void 0===i&&o$5.set(r,i=new n$4(r,e$2)),i},i$3=(e,n)=>{t$1?e.adoptedStyleSheets=n.map((t=>t instanceof CSSStyleSheet?t:t.styleSheet)):n.forEach((t=>{const n=document.createElement("style");n.textContent=t.cssText,e.appendChild(n);}));},S=t$1?t=>t:t=>t instanceof CSSStyleSheet?(t=>{let e="";for(const n of t.cssRules)e+=n.cssText;return s$3(e)})(t):t;
+const t$1=window.ShadowRoot&&(void 0===window.ShadyCSS||window.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,e$2=Symbol();class n$4{constructor(t,n){if(n!==e$2)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t;}get styleSheet(){return t$1&&void 0===this.t&&(this.t=new CSSStyleSheet,this.t.replaceSync(this.cssText)),this.t}toString(){return this.cssText}}const s$3=t=>new n$4(t+"",e$2),o$3=new Map,r$1=(t,...s)=>{const r=s.reduce(((e,s,o)=>e+(t=>{if(t instanceof n$4)return t.cssText;if("number"==typeof t)return t;throw Error(`Value passed to 'css' function must be a 'css' function result: ${t}. Use 'unsafeCSS' to pass non-literal values, but\n            take care to ensure page security.`)})(s)+t[o+1]),t[0]);let i=o$3.get(r);return void 0===i&&o$3.set(r,i=new n$4(r,e$2)),i},i$3=(e,n)=>{t$1?e.adoptedStyleSheets=n.map((t=>t instanceof CSSStyleSheet?t:t.styleSheet)):n.forEach((t=>{const n=document.createElement("style");n.textContent=t.cssText,e.appendChild(n);}));},S=t$1?t=>t:t=>t instanceof CSSStyleSheet?(t=>{let e="";for(const n of t.cssRules)e+=n.cssText;return s$3(e)})(t):t;
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */var s$2,e$1,h$1,r;const o$4={toAttribute(t,i){switch(i){case Boolean:t=t?"":null;break;case Object:case Array:t=null==t?t:JSON.stringify(t);}return t},fromAttribute(t,i){let s=t;switch(i){case Boolean:s=null!==t;break;case Number:s=null===t?null:Number(t);break;case Object:case Array:try{s=JSON.parse(t);}catch(t){s=null;}}return s}},n$3=(t,i)=>i!==t&&(i==i||t==t),l$1={attribute:!0,type:String,converter:o$4,reflect:!1,hasChanged:n$3};class a$1 extends HTMLElement{constructor(){super(),this.Πi=new Map,this.Πo=void 0,this.Πl=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this.Πh=null,this.u();}static addInitializer(t){var i;null!==(i=this.v)&&void 0!==i||(this.v=[]),this.v.push(t);}static get observedAttributes(){this.finalize();const t=[];return this.elementProperties.forEach(((i,s)=>{const e=this.Πp(s,i);void 0!==e&&(this.Πm.set(e,s),t.push(e));})),t}static createProperty(t,i=l$1){if(i.state&&(i.attribute=!1),this.finalize(),this.elementProperties.set(t,i),!i.noAccessor&&!this.prototype.hasOwnProperty(t)){const s="symbol"==typeof t?Symbol():"__"+t,e=this.getPropertyDescriptor(t,s,i);void 0!==e&&Object.defineProperty(this.prototype,t,e);}}static getPropertyDescriptor(t,i,s){return {get(){return this[i]},set(e){const h=this[t];this[i]=e,this.requestUpdate(t,h,s);},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)||l$1}static finalize(){if(this.hasOwnProperty("finalized"))return !1;this.finalized=!0;const t=Object.getPrototypeOf(this);if(t.finalize(),this.elementProperties=new Map(t.elementProperties),this.Πm=new Map,this.hasOwnProperty("properties")){const t=this.properties,i=[...Object.getOwnPropertyNames(t),...Object.getOwnPropertySymbols(t)];for(const s of i)this.createProperty(s,t[s]);}return this.elementStyles=this.finalizeStyles(this.styles),!0}static finalizeStyles(i){const s=[];if(Array.isArray(i)){const e=new Set(i.flat(1/0).reverse());for(const i of e)s.unshift(S(i));}else void 0!==i&&s.push(S(i));return s}static Πp(t,i){const s=i.attribute;return !1===s?void 0:"string"==typeof s?s:"string"==typeof t?t.toLowerCase():void 0}u(){var t;this.Πg=new Promise((t=>this.enableUpdating=t)),this.L=new Map,this.Π_(),this.requestUpdate(),null===(t=this.constructor.v)||void 0===t||t.forEach((t=>t(this)));}addController(t){var i,s;(null!==(i=this.ΠU)&&void 0!==i?i:this.ΠU=[]).push(t),void 0!==this.renderRoot&&this.isConnected&&(null===(s=t.hostConnected)||void 0===s||s.call(t));}removeController(t){var i;null===(i=this.ΠU)||void 0===i||i.splice(this.ΠU.indexOf(t)>>>0,1);}Π_(){this.constructor.elementProperties.forEach(((t,i)=>{this.hasOwnProperty(i)&&(this.Πi.set(i,this[i]),delete this[i]);}));}createRenderRoot(){var t;const s=null!==(t=this.shadowRoot)&&void 0!==t?t:this.attachShadow(this.constructor.shadowRootOptions);return i$3(s,this.constructor.elementStyles),s}connectedCallback(){var t;void 0===this.renderRoot&&(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),null===(t=this.ΠU)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostConnected)||void 0===i?void 0:i.call(t)})),this.Πl&&(this.Πl(),this.Πo=this.Πl=void 0);}enableUpdating(t){}disconnectedCallback(){var t;null===(t=this.ΠU)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostDisconnected)||void 0===i?void 0:i.call(t)})),this.Πo=new Promise((t=>this.Πl=t));}attributeChangedCallback(t,i,s){this.K(t,s);}Πj(t,i,s=l$1){var e,h;const r=this.constructor.Πp(t,s);if(void 0!==r&&!0===s.reflect){const n=(null!==(h=null===(e=s.converter)||void 0===e?void 0:e.toAttribute)&&void 0!==h?h:o$4.toAttribute)(i,s.type);this.Πh=t,null==n?this.removeAttribute(r):this.setAttribute(r,n),this.Πh=null;}}K(t,i){var s,e,h;const r=this.constructor,n=r.Πm.get(t);if(void 0!==n&&this.Πh!==n){const t=r.getPropertyOptions(n),l=t.converter,a=null!==(h=null!==(e=null===(s=l)||void 0===s?void 0:s.fromAttribute)&&void 0!==e?e:"function"==typeof l?l:null)&&void 0!==h?h:o$4.fromAttribute;this.Πh=n,this[n]=a(i,t.type),this.Πh=null;}}requestUpdate(t,i,s){let e=!0;void 0!==t&&(((s=s||this.constructor.getPropertyOptions(t)).hasChanged||n$3)(this[t],i)?(this.L.has(t)||this.L.set(t,i),!0===s.reflect&&this.Πh!==t&&(void 0===this.Πk&&(this.Πk=new Map),this.Πk.set(t,s))):e=!1),!this.isUpdatePending&&e&&(this.Πg=this.Πq());}async Πq(){this.isUpdatePending=!0;try{for(await this.Πg;this.Πo;)await this.Πo;}catch(t){Promise.reject(t);}const t=this.performUpdate();return null!=t&&await t,!this.isUpdatePending}performUpdate(){var t;if(!this.isUpdatePending)return;this.hasUpdated,this.Πi&&(this.Πi.forEach(((t,i)=>this[i]=t)),this.Πi=void 0);let i=!1;const s=this.L;try{i=this.shouldUpdate(s),i?(this.willUpdate(s),null===(t=this.ΠU)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostUpdate)||void 0===i?void 0:i.call(t)})),this.update(s)):this.Π$();}catch(t){throw i=!1,this.Π$(),t}i&&this.E(s);}willUpdate(t){}E(t){var i;null===(i=this.ΠU)||void 0===i||i.forEach((t=>{var i;return null===(i=t.hostUpdated)||void 0===i?void 0:i.call(t)})),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t);}Π$(){this.L=new Map,this.isUpdatePending=!1;}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this.Πg}shouldUpdate(t){return !0}update(t){void 0!==this.Πk&&(this.Πk.forEach(((t,i)=>this.Πj(i,this[i],t))),this.Πk=void 0),this.Π$();}updated(t){}firstUpdated(t){}}a$1.finalized=!0,a$1.shadowRootOptions={mode:"open"},null===(e$1=(s$2=globalThis).reactiveElementPlatformSupport)||void 0===e$1||e$1.call(s$2,{ReactiveElement:a$1}),(null!==(h$1=(r=globalThis).reactiveElementVersions)&&void 0!==h$1?h$1:r.reactiveElementVersions=[]).push("1.0.0-rc.1");
+ */var s$2,e$1,h$1,r;const o$2={toAttribute(t,i){switch(i){case Boolean:t=t?"":null;break;case Object:case Array:t=null==t?t:JSON.stringify(t);}return t},fromAttribute(t,i){let s=t;switch(i){case Boolean:s=null!==t;break;case Number:s=null===t?null:Number(t);break;case Object:case Array:try{s=JSON.parse(t);}catch(t){s=null;}}return s}},n$3=(t,i)=>i!==t&&(i==i||t==t),l$1={attribute:!0,type:String,converter:o$2,reflect:!1,hasChanged:n$3};class a$1 extends HTMLElement{constructor(){super(),this.Πi=new Map,this.Πo=void 0,this.Πl=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this.Πh=null,this.u();}static addInitializer(t){var i;null!==(i=this.v)&&void 0!==i||(this.v=[]),this.v.push(t);}static get observedAttributes(){this.finalize();const t=[];return this.elementProperties.forEach(((i,s)=>{const e=this.Πp(s,i);void 0!==e&&(this.Πm.set(e,s),t.push(e));})),t}static createProperty(t,i=l$1){if(i.state&&(i.attribute=!1),this.finalize(),this.elementProperties.set(t,i),!i.noAccessor&&!this.prototype.hasOwnProperty(t)){const s="symbol"==typeof t?Symbol():"__"+t,e=this.getPropertyDescriptor(t,s,i);void 0!==e&&Object.defineProperty(this.prototype,t,e);}}static getPropertyDescriptor(t,i,s){return {get(){return this[i]},set(e){const h=this[t];this[i]=e,this.requestUpdate(t,h,s);},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)||l$1}static finalize(){if(this.hasOwnProperty("finalized"))return !1;this.finalized=!0;const t=Object.getPrototypeOf(this);if(t.finalize(),this.elementProperties=new Map(t.elementProperties),this.Πm=new Map,this.hasOwnProperty("properties")){const t=this.properties,i=[...Object.getOwnPropertyNames(t),...Object.getOwnPropertySymbols(t)];for(const s of i)this.createProperty(s,t[s]);}return this.elementStyles=this.finalizeStyles(this.styles),!0}static finalizeStyles(i){const s=[];if(Array.isArray(i)){const e=new Set(i.flat(1/0).reverse());for(const i of e)s.unshift(S(i));}else void 0!==i&&s.push(S(i));return s}static Πp(t,i){const s=i.attribute;return !1===s?void 0:"string"==typeof s?s:"string"==typeof t?t.toLowerCase():void 0}u(){var t;this.Πg=new Promise((t=>this.enableUpdating=t)),this.L=new Map,this.Π_(),this.requestUpdate(),null===(t=this.constructor.v)||void 0===t||t.forEach((t=>t(this)));}addController(t){var i,s;(null!==(i=this.ΠU)&&void 0!==i?i:this.ΠU=[]).push(t),void 0!==this.renderRoot&&this.isConnected&&(null===(s=t.hostConnected)||void 0===s||s.call(t));}removeController(t){var i;null===(i=this.ΠU)||void 0===i||i.splice(this.ΠU.indexOf(t)>>>0,1);}Π_(){this.constructor.elementProperties.forEach(((t,i)=>{this.hasOwnProperty(i)&&(this.Πi.set(i,this[i]),delete this[i]);}));}createRenderRoot(){var t;const s=null!==(t=this.shadowRoot)&&void 0!==t?t:this.attachShadow(this.constructor.shadowRootOptions);return i$3(s,this.constructor.elementStyles),s}connectedCallback(){var t;void 0===this.renderRoot&&(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),null===(t=this.ΠU)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostConnected)||void 0===i?void 0:i.call(t)})),this.Πl&&(this.Πl(),this.Πo=this.Πl=void 0);}enableUpdating(t){}disconnectedCallback(){var t;null===(t=this.ΠU)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostDisconnected)||void 0===i?void 0:i.call(t)})),this.Πo=new Promise((t=>this.Πl=t));}attributeChangedCallback(t,i,s){this.K(t,s);}Πj(t,i,s=l$1){var e,h;const r=this.constructor.Πp(t,s);if(void 0!==r&&!0===s.reflect){const n=(null!==(h=null===(e=s.converter)||void 0===e?void 0:e.toAttribute)&&void 0!==h?h:o$2.toAttribute)(i,s.type);this.Πh=t,null==n?this.removeAttribute(r):this.setAttribute(r,n),this.Πh=null;}}K(t,i){var s,e,h;const r=this.constructor,n=r.Πm.get(t);if(void 0!==n&&this.Πh!==n){const t=r.getPropertyOptions(n),l=t.converter,a=null!==(h=null!==(e=null===(s=l)||void 0===s?void 0:s.fromAttribute)&&void 0!==e?e:"function"==typeof l?l:null)&&void 0!==h?h:o$2.fromAttribute;this.Πh=n,this[n]=a(i,t.type),this.Πh=null;}}requestUpdate(t,i,s){let e=!0;void 0!==t&&(((s=s||this.constructor.getPropertyOptions(t)).hasChanged||n$3)(this[t],i)?(this.L.has(t)||this.L.set(t,i),!0===s.reflect&&this.Πh!==t&&(void 0===this.Πk&&(this.Πk=new Map),this.Πk.set(t,s))):e=!1),!this.isUpdatePending&&e&&(this.Πg=this.Πq());}async Πq(){this.isUpdatePending=!0;try{for(await this.Πg;this.Πo;)await this.Πo;}catch(t){Promise.reject(t);}const t=this.performUpdate();return null!=t&&await t,!this.isUpdatePending}performUpdate(){var t;if(!this.isUpdatePending)return;this.hasUpdated,this.Πi&&(this.Πi.forEach(((t,i)=>this[i]=t)),this.Πi=void 0);let i=!1;const s=this.L;try{i=this.shouldUpdate(s),i?(this.willUpdate(s),null===(t=this.ΠU)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostUpdate)||void 0===i?void 0:i.call(t)})),this.update(s)):this.Π$();}catch(t){throw i=!1,this.Π$(),t}i&&this.E(s);}willUpdate(t){}E(t){var i;null===(i=this.ΠU)||void 0===i||i.forEach((t=>{var i;return null===(i=t.hostUpdated)||void 0===i?void 0:i.call(t)})),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t);}Π$(){this.L=new Map,this.isUpdatePending=!1;}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this.Πg}shouldUpdate(t){return !0}update(t){void 0!==this.Πk&&(this.Πk.forEach(((t,i)=>this.Πj(i,this[i],t))),this.Πk=void 0),this.Π$();}updated(t){}firstUpdated(t){}}a$1.finalized=!0,a$1.shadowRootOptions={mode:"open"},null===(e$1=(s$2=globalThis).reactiveElementPlatformSupport)||void 0===e$1||e$1.call(s$2,{ReactiveElement:a$1}),(null!==(h$1=(r=globalThis).reactiveElementVersions)&&void 0!==h$1?h$1:r.reactiveElementVersions=[]).push("1.0.0-rc.1");
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */var i$2,l,o$3,s$1,n$2,a;(null!==(i$2=(a=globalThis).litElementVersions)&&void 0!==i$2?i$2:a.litElementVersions=[]).push("3.0.0-rc.1");class h extends a$1{constructor(){super(...arguments),this.renderOptions={host:this},this.Φt=void 0;}createRenderRoot(){var t,e;const r=super.createRenderRoot();return null!==(t=(e=this.renderOptions).renderBefore)&&void 0!==t||(e.renderBefore=r.firstChild),r}update(t){const r=this.render();super.update(t),this.Φt=V(r,this.renderRoot,this.renderOptions);}connectedCallback(){var t;super.connectedCallback(),null===(t=this.Φt)||void 0===t||t.setConnected(!0);}disconnectedCallback(){var t;super.disconnectedCallback(),null===(t=this.Φt)||void 0===t||t.setConnected(!1);}render(){return w}}h.finalized=!0,h._$litElement$=!0,null===(o$3=(l=globalThis).litElementHydrateSupport)||void 0===o$3||o$3.call(l,{LitElement:h}),null===(n$2=(s$1=globalThis).litElementPlatformSupport)||void 0===n$2||n$2.call(s$1,{LitElement:h});
+ */var i$2,l,o$1,s$1,n$2,a;(null!==(i$2=(a=globalThis).litElementVersions)&&void 0!==i$2?i$2:a.litElementVersions=[]).push("3.0.0-rc.1");class h extends a$1{constructor(){super(...arguments),this.renderOptions={host:this},this.Φt=void 0;}createRenderRoot(){var t,e;const r=super.createRenderRoot();return null!==(t=(e=this.renderOptions).renderBefore)&&void 0!==t||(e.renderBefore=r.firstChild),r}update(t){const r=this.render();super.update(t),this.Φt=V(r,this.renderRoot,this.renderOptions);}connectedCallback(){var t;super.connectedCallback(),null===(t=this.Φt)||void 0===t||t.setConnected(!0);}disconnectedCallback(){var t;super.disconnectedCallback(),null===(t=this.Φt)||void 0===t||t.setConnected(!1);}render(){return w}}h.finalized=!0,h._$litElement$=!0,null===(o$1=(l=globalThis).litElementHydrateSupport)||void 0===o$1||o$1.call(l,{LitElement:h}),null===(n$2=(s$1=globalThis).litElementPlatformSupport)||void 0===n$2||n$2.call(s$1,{LitElement:h});
 
 /**
  * @license
@@ -143,33 +122,19 @@ const n$1=n=>e=>"function"==typeof e?((n,e)=>(window.customElements.define(n,e),
  */
 const i$1=(i,e)=>"method"===e.kind&&e.descriptor&&!("value"in e.descriptor)?{...e,finisher(n){n.createProperty(e.key,i);}}:{kind:"field",key:Symbol(),placement:"own",descriptor:{},originalKey:e.key,initializer(){"function"==typeof e.initializer&&(this[e.key]=e.initializer.call(this));},finisher(n){n.createProperty(e.key,i);}};function e(e){return (n,t)=>void 0!==t?((i,e,n)=>{e.constructor.createProperty(n,i);})(e,n,t):i$1(e,n)}
 
-/**
- * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */
-const o$2=({finisher:e,descriptor:t})=>(o,n)=>{var r;if(void 0===n){const n=null!==(r=o.originalKey)&&void 0!==r?r:o.key,i=null!=t?{kind:"method",placement:"prototype",key:n,descriptor:t(o.key)}:{...o,key:n};return null!=e&&(i.finisher=function(t){e(t,n);}),i}{const r=o.constructor;void 0!==t&&Object.defineProperty(o,n,t(n)),null==e||e(r,n);}};
-
-/**
- * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */function o$1(o,r){return o$2({descriptor:t=>{const i={get(){var t;return null===(t=this.renderRoot)||void 0===t?void 0:t.querySelector(o)},enumerable:!0,configurable:!0};if(r){const r="symbol"==typeof t?Symbol():"__"+t;i.get=function(){var t;return void 0===this[r]&&(this[r]=null===(t=this.renderRoot)||void 0===t?void 0:t.querySelector(o)),this[r]};}return i}})}
+const layoutStyles = r$1 `
+  .account-layout {
+    font-family: var(--printess-font);
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 50px 1fr;
+    grid-template-columns: 250px 1fr;
+  }
+`;
 
 function assertNever(x, msg = "") {
     const eMsg = msg || "Unexpected object: " + x;
     throw new Error(eMsg);
-}
-function createOverlayDiv() {
-    const div = document.createElement("div");
-    div.style.left = "0";
-    div.style.top = "0";
-    div.style.bottom = "0";
-    div.style.right = "0";
-    div.style.position = "absolute";
-    div.style.backgroundColor = "transparent";
-    div.style.cursor = "grab";
-    return div;
 }
 function isMobile(mobileDeviceWidth = 896) {
     const mq = window.matchMedia(`(min-width:  ${mobileDeviceWidth + 1}px)`);
@@ -189,7 +154,7 @@ const t={ATTRIBUTE:1,CHILD:2,PROPERTY:3,BOOLEAN_ATTRIBUTE:4,EVENT:5,ELEMENT:6},i
  * SPDX-License-Identifier: BSD-3-Clause
  */class n extends s{constructor(i){if(super(i),this.vt=A,i.type!==t.CHILD)throw Error(this.constructor.directiveName+"() can only be used in child bindings")}render(r){if(r===A)return this.Vt=void 0,this.vt=r;if(r===w)return r;if("string"!=typeof r)throw Error(this.constructor.directiveName+"() called with a non-string value");if(r===this.vt)return this.Vt;this.vt=r;const s=[r];return s.raw=s,this.Vt={_$litType$:this.constructor.resultType,strings:s,values:[]}}}n.directiveName="unsafeHTML",n.resultType=1;const o=i(n);
 
-var __decorate$d = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$3 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -914,1070 +879,54 @@ svg.color-head-toolbar:hover {
         return T `${o(getIcon(this.icon).replace('<svg ', ' <svg class="' + cl + '"'))}`;
     }
 };
-__decorate$d([
+__decorate$3([
     e()
 ], WcIcon.prototype, "primaryColor", void 0);
-__decorate$d([
+__decorate$3([
     e()
 ], WcIcon.prototype, "icon", void 0);
-WcIcon = __decorate$d([
+WcIcon = __decorate$3([
     n$1("wc-icon")
 ], WcIcon);
 
-const menuItemH = 28;
-const submMenuHGap = menuItemH * 0.25;
-const contextOverlayDiv = createOverlayDiv();
-contextOverlayDiv.addEventListener("mousedown", removeCtxMenu);
-const contextMenuDiv = document.createElement('div');
-contextMenuDiv.classList.add("printess-ctx-menu");
-contextMenuDiv.id = "contextMenu";
-let canReceiveMenuClick = false;
-function getLi(itm) {
-    const li = document.createElement("li");
-    if (itm.caption === "-") {
-        li.classList.add("printess-ctx-menu-item-seperator");
-        return li;
+var __decorate$2 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+let WcAppLayout = class WcAppLayout extends h {
+    constructor() {
+        super(...arguments);
+        this.notifications = 0;
+        this.debug = window.location.hostname === 'localhost' || window.location.href.indexOf('debug=1') > 0;
     }
-    li.classList.add("printess-ctx-menu-item");
-    if (itm.callback && !(itm.disabled === true)) {
-        li.addEventListener("mouseup", () => {
-            if (canReceiveMenuClick && itm.callback)
-                itm.callback();
-        });
+    static get styles() {
+        return [layoutStyles];
     }
-    if (itm.disabled) {
-        li.classList.add("disabled");
-        if (itm.icon) {
-            const icon = new WcIcon();
-            icon.icon = itm.icon;
-            icon.primaryColor = "gray";
-            li.appendChild(icon);
-        }
-        else {
-            li.appendChild(document.createElement("div"));
-        }
+    connectedCallback() {
+        super.connectedCallback();
     }
-    else if (!itm.textOnly) {
-        if (itm.icon) {
-            const icon = new WcIcon();
-            icon.icon = itm.icon;
-            if (itm.icon.indexOf("-invers") >= 0) {
-                icon.primaryColor = "headline";
-            }
-            else {
-                icon.primaryColor = "text";
-            }
-            li.appendChild(icon);
-        }
-        else {
-            const icon = document.createElement("div");
-            if (itm.color) {
-                icon.style.backgroundColor = itm.color;
-                icon.classList.add("color");
-            }
-            li.appendChild(icon);
-        }
+    render() {
+        return T `
+      <div class="account-layout">
+      </div>
+    `;
     }
-    const caption = document.createElement("div");
-    caption.classList.add("printess-ctx-menu-caption");
-    caption.innerText = itm.caption;
-    if (itm.font) {
-        caption.style.fontFamily = itm.font;
-        caption.style.fontSize = "11pt";
-    }
-    li.appendChild(caption);
-    if (itm.sub) {
-        const icon = new WcIcon();
-        icon.icon = "carret-right-solid";
-        icon.primaryColor = "text";
-        icon.classList.add("arrow");
-        li.appendChild(icon);
-    }
-    return li;
-}
-function showCtxMenu(event, items, xOffset = 0, yOffset = 0, pixelWidth = 180, showIfEddiIsActive = false) {
-    event.preventDefault();
-    const menuWidth = pixelWidth;
-    removeCtxMenu();
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
-    if (!event.target)
-        return;
-    if (!items) {
-        const wc = event.target;
-        if (typeof wc.getContextMenu === "function") {
-            items = wc.getContextMenu(event.target, mouseX, mouseY);
-        }
-    }
-    if (!items)
-        return;
-    const menuHeight = (items.filter(i => i.caption !== "-").length * menuItemH) + (items.filter(i => i.caption === "-").length * 7);
-    contextMenuDiv.style.height = menuHeight + "px";
-    contextMenuDiv.style.width = menuWidth + "px";
-    event.preventDefault();
-    let curX = mouseX;
-    let curY = mouseY;
-    let curSubX = mouseX;
-    let curSubY = mouseY;
-    contextMenuDiv.innerHTML = "";
-    const menu = document.createElement("div");
-    contextMenuDiv.appendChild(menu);
-    const ul = document.createElement("ul");
-    menu.appendChild(ul);
-    canReceiveMenuClick = false;
-    for (const itm of items) {
-        const li = getLi(itm);
-        li.addEventListener("mousedown", () => {
-            canReceiveMenuClick = true;
-        });
-        li.addEventListener("mouseup", () => {
-            if (canReceiveMenuClick)
-                removeCtxMenu();
-        });
-        if (itm.sub && itm.sub.length) {
-            li.classList.add("printess-sub-menu-trigger");
-            const submenu = document.createElement("div");
-            const subUl = document.createElement("ul");
-            submenu.appendChild(subUl);
-            submenu.classList.add("printess-sub-menu");
-            for (const subItem of itm.sub) {
-                const li = getLi(subItem);
-                subUl.appendChild(li);
-            }
-            if ((window.innerHeight - mouseY) < submMenuHGap) {
-                curSubY = (submMenuHGap - 40) - ((mouseY + submMenuHGap) - window.innerHeight);
-            }
-            else {
-                curSubY = submMenuHGap;
-            }
-            if ((window.innerWidth - mouseX) < menuWidth * 2) {
-                curSubX = -menuWidth;
-            }
-            else {
-                curSubX = menuWidth;
-            }
-            submenu.style.top = curSubY + 'px';
-            submenu.style.left = curSubX + 'px';
-            submenu.style.width = menuWidth + 'px';
-            li.onmouseover = () => {
-                submenu.style.display = 'block';
-            };
-            submenu.onmouseover = () => {
-                submenu.style.display = 'block';
-            };
-            li.onmouseout = () => {
-                submenu.style.display = 'none';
-            };
-            submenu.onmouseout = () => {
-                submenu.style.display = 'none';
-            };
-            li.appendChild(submenu);
-        }
-        ul.appendChild(li);
-    }
-    if (mouseY + menuHeight > window.innerHeight) {
-        curY = window.innerHeight - menuHeight - 10;
-    }
-    else {
-        curY = mouseY;
-    }
-    if ((window.innerWidth - (mouseX + xOffset)) < menuWidth) {
-        curX = mouseX - menuWidth;
-        contextMenuDiv.classList.add("printess-rev-ctx-menu");
-    }
-    else {
-        contextMenuDiv.classList.remove("printess-rev-ctx-menu");
-        curX = mouseX;
-    }
-    contextMenuDiv.style.top = (curY + yOffset) + 'px';
-    contextMenuDiv.style.left = (curX + xOffset) + 'px';
-    document.body.appendChild(contextOverlayDiv);
-    document.body.appendChild(contextMenuDiv);
-}
-function removeCtxMenu() {
-    if (contextMenuDiv.parentElement) {
-        document.body.removeChild(contextMenuDiv);
-    }
-    if (contextOverlayDiv.parentElement) {
-        document.body.removeChild(contextOverlayDiv);
-    }
-}
+};
+__decorate$2([
+    e({ type: Number })
+], WcAppLayout.prototype, "notifications", void 0);
+WcAppLayout = __decorate$2([
+    n$1("wc-app-layout")
+], WcAppLayout);
 
 const config = {
     mobileDeviceWidth: 896,
-    isMobile: isMobile(896)
+    isMobile: isMobile(896),
+    tokenRole: "",
+    tokenRoles: []
 };
-
-const layoutStyles = r$1 `
-  .account-layout {
-    font-family: var(--printess-font);
-    height: 100vh;
-    display: grid;
-    grid-template-rows: 50px 1fr;
-    grid-template-columns: 200px 1fr;
-    background-color: var(--fuerte-light);
-  }
-
-  #user-content {
-    grid-column: 2/3;
-    grid-row: 2/3;
-    padding: 10px 250px 40px 50px;
-    overflow-y: scroll;
-  }
-
-  @media (max-width: 1200px) {
-    #user-content {
-      padding-right: 50px;
-    }
-  }
-  
-  .drawer {
-    background-color: var(--fuerte-aqua);
-    grid-column: 1/2;
-    grid-row: 2/3;
-    border-right: 1px solid #1a39601a;
-    outline: none;
-    padding: 30px;
-  }
-
-  @media (max-width: ${config.mobileDeviceWidth}px) {
-    .account-layout {
-      display: flex;
-      flex-direction: column;
-    }
-
-    #user-content {
-      padding: 50px 30px 20px;
-    }
-
-    .drawer {
-      position: fixed;
-      top: 50;
-      left: 0;
-      right: 0;
-      bottom: auto;
-      display: flex;
-      flex-direction: column;
-      height: auto;
-      padding: 0;
-      z-index: 1;
-    }
-  }
-`;
-const navbarStyles = r$1 `
-  header {
-    grid-column: 1/3;
-    grid-row: 1/2;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: auto;
-    z-index: 1;
-    height: 50px;
-    background-color: var(--fuerte-background-color);
-    color: white;
-    font-family: Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding-left: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: var(--fuerte-box-shadow);
-  }
-
-  .island {
-    width: 20px;
-    margin-left: 10px; 
-    cursor: pointer;
-  }
-
-  @media (max-width: ${config.mobileDeviceWidth}px) {
-    header::before {
-      background-image: none;
-    }
-
-    .island {
-      width: 0px;
-    }
-  }
-
-  #printess-logo {
-    display: inline-block;
-    height: 35px;
-    width: 120px;
-    padding-bottom: 5px;
-    padding-left: 0px;
-    background-size: 100%;
-    background-image: url(https://printess.com/printess-white-2.svg);
-    background-position: 0px 0px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    text-decoration: none;
-    background-origin: content-box;
-  }
-`;
-
-const drawerStyles = r$1 `
-  .tab {
-    cursor: pointer;
-    font-family: var(--printess-font);
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 40px;
-    color: white;
-    text-shadow: 1px 1px 2px #555;
-  }
-
-  .tab wc-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-  }
-
-  .selected {
-    color: var(--fuerte-brown);
-  }
-
-  .user-icon {
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-
-  .hidden {
-    display: none;
-  }
-
-    @media (max-width: ${config.mobileDeviceWidth}px) {
-    .menu-icon {
-      position: fixed;
-      top: 14px;
-      left: 20px;
-      height: 25px;
-      width: 30px;
-    }
-
-    .tab {
-      border-bottom: 1px solid #ddd;
-      width: 100%;
-      font-size: 15px;
-      justify-content: center;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-  }
-`;
-
-var __decorate$c = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-let WcAppDrawer = class WcAppDrawer extends h {
-    constructor(selectedDrawer) {
-        super();
-        this.selectedDrawer = '';
-        this.drawerOpen = false;
-        this.drawers = [{
-                name: 'latest-story',
-                title: 'Fotos',
-                icon: 'camera-retro-duotone'
-            }, {
-                name: 'foto-preview',
-                title: 'Kalender',
-                icon: 'calendar-alt'
-            }, {
-                name: 'map',
-                title: 'Karte',
-                icon: 'map-duotone'
-            }, {
-                name: 'trip-details',
-                title: 'Reisedaten',
-                icon: 'plane-duotone'
-            }];
-        this.selectedDrawer = selectedDrawer;
-    }
-    static get styles() {
-        return [drawerStyles];
-    }
-    ;
-    ;
-    connectedCallback() {
-        super.connectedCallback();
-    }
-    ;
-    getDrawerSelection(callback) {
-        this.callback = callback;
-    }
-    ;
-    openDrawer() {
-        this.drawerOpen = !this.drawerOpen;
-        this.requestUpdate();
-    }
-    ;
-    setDrawerSelection(name) {
-        this.selectedDrawer = name;
-        if (this.callback) {
-            this.callback(this.selectedDrawer);
-        }
-    }
-    ;
-    render() {
-        return T `
-      ${config.isMobile ? T `<wc-icon @click=${this.openDrawer} class="menu-icon" primaryColor="toolbar" icon=${this.drawerOpen ? 'close' : 'bars-light'}></wc-icon>` : ''} 
-      <aside class="drawer ${!this.drawerOpen && config.isMobile ? 'hidden' : ''}">
-        ${appUser === 'admin' ? T `<div class="tab ${this.selectedDrawer === 'upload' ? "selected" : ""}" style="display: flex; align-items: center;"
-          @click=${() => this.setDrawerSelection('upload')}>Foto Upload</div>` : ''}
-        
-        ${appUser === 'admin' ? T `<div class="tab ${this.selectedDrawer === 'sightseeing' ? "selected" : ""}" style="display: flex; align-items: center;"
-          @click=${() => this.setDrawerSelection('sightseeing')}>Sightseeing</div>` : ''}
-
-        ${this.drawers.map(d => T `<div class="tab ${this.selectedDrawer === d.name ? "selected" : ""}" style="display: flex; align-items: center;"
-          @click=${() => this.setDrawerSelection(d.name)}><wc-icon primaryColor=${this.selectedDrawer === d.name ? "green" : "toolbar"} icon=${d.icon}></wc-icon>${d.title}</div>`)}
-      </aside>
-    `;
-    }
-    ;
-};
-__decorate$c([
-    e({ type: String })
-], WcAppDrawer.prototype, "selectedDrawer", void 0);
-WcAppDrawer = __decorate$c([
-    n$1("wc-app-drawer")
-], WcAppDrawer);
-
-const uploadStyles = r$1 `
-  .upload-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    color: #555;
-  }
-
-  .title {
-    text-align: center;
-    padding-right: 150px;
-  }
-`;
-
-class NobsBase {
-    constructor(nobs, source) {
-        if (nobs instanceof Nobs && source instanceof NobsBase) {
-            nobs._called_from_constructor_findMutations(source);
-            for (const key of Object.keys(source)) {
-                const value = source[key];
-                if (value instanceof NobsBase) {
-                    if (nobs.hasObjectReplacement(value)) {
-                        this[key] = nobs.getObjectReplacement(value);
-                    }
-                    else if (nobs._called_from_constructor_hasMutation(value)) {
-                        this[key] = new value.constructor(nobs, value);
-                    }
-                    else {
-                        this[key] = value;
-                    }
-                }
-                else if (value instanceof Map) {
-                    this[key] = nobs._called_from_constructor_cloneMap(value);
-                }
-                else if (Array.isArray(value)) {
-                    this[key] = nobs._called_from_constructor_cloneArray(value);
-                }
-                else {
-                    if (nobs.hasProperty(source, key)) {
-                        this[key] = nobs.popProperty(source, key);
-                    }
-                    else {
-                        this[key] = source[key];
-                    }
-                }
-            }
-            const props = nobs.getChangedProperties(source);
-            if (props && props.size > 0) {
-                for (const [key, value] of props) {
-                    this[key] = value;
-                }
-            }
-        }
-    }
-}
-class Nobs {
-    constructor() {
-        this.createdObjects = new Map();
-        this.replacedObjects = new Map();
-        this.removedObjects = new Set();
-        this.changedProperties = new Map();
-        this.replacedCollections = new Map();
-        this.mutatedObjects = new Set();
-    }
-    setProperty(item, propertyName, propertyValue) {
-        if (item && (propertyValue instanceof NobsBase || propertyValue === null) && item[propertyName] instanceof NobsBase) {
-            this.replaceObject(item[propertyName], propertyValue);
-        }
-        else {
-            let map = this.changedProperties.get(item);
-            if (!map) {
-                map = new Map();
-                this.changedProperties.set(item, map);
-            }
-            map.set(propertyName, propertyValue);
-        }
-        return this;
-    }
-    getChangedProperties(item) {
-        return this.changedProperties.get(item);
-    }
-    getProperty(item, propertyName) {
-        const map = this.changedProperties.get(item);
-        if (map && map.has(propertyName)) {
-            return map.get(propertyName);
-        }
-        else {
-            return item[propertyName];
-        }
-    }
-    popProperty(item, propertyName) {
-        const map = this.changedProperties.get(item);
-        if (map && map.has(propertyName)) {
-            const r = map.get(propertyName);
-            map.delete(propertyName);
-            return r;
-        }
-        else {
-            return item[propertyName];
-        }
-    }
-    hasProperty(item, propertyName) {
-        const map = this.changedProperties.get(item);
-        return !!(map && map.has(propertyName));
-    }
-    replaceCollection(find, replace) {
-        this.replacedCollections.set(find, replace);
-        return this;
-    }
-    addToCollection(parentCollection, newObject, insertBefore = undefined, insertAfter = undefined) {
-        let ar = this.createdObjects.get(parentCollection);
-        if (!ar) {
-            ar = [];
-            this.createdObjects.set(parentCollection, ar);
-        }
-        const newItem = {
-            object: newObject,
-            insertBefore: insertBefore,
-            insertAfter: insertAfter
-        };
-        ar.push(newItem);
-        return this;
-    }
-    reOrderInsideCollection(parentCollection, object, insertBefore = undefined, insertAfter = undefined) {
-        if (object !== insertBefore && object !== insertAfter) {
-            this.removeObject(object);
-            this.addToCollection(parentCollection, object, insertBefore, insertAfter);
-        }
-        return this;
-    }
-    replaceObject(find, replace) {
-        this.replacedObjects.set(find, replace);
-        return this;
-    }
-    hasObjectReplacement(find) {
-        return this.replacedObjects.has(find);
-    }
-    getObjectReplacement(find) {
-        return this.replacedObjects.get(find);
-    }
-    removeObject(x) {
-        this.removedObjects.add(x);
-        return this;
-    }
-    _called_from_constructor_hasMutation(obj) {
-        return this.mutatedObjects.has(obj);
-    }
-    _called_from_constructor_findMutations(source) {
-        let ret = false;
-        for (const key of Object.keys(source)) {
-            const value = source[key];
-            if (this.hasProperty(source, key)) {
-                ret = true;
-            }
-            if (value instanceof NobsBase) {
-                if (this.replacedObjects.has(value) || this._called_from_constructor_findMutations(value)) {
-                    this.mutatedObjects.add(value);
-                    ret = true;
-                }
-            }
-            else if (value instanceof Map || Array.isArray(value)) {
-                if (this.replacedCollections.has(value)) {
-                    this.mutatedObjects.add(value);
-                    ret = true;
-                }
-                if (value instanceof Map) {
-                    for (const itm of value.values()) {
-                        if (this.removedObjects.has(itm) || this.replacedObjects.has(itm)) {
-                            this.mutatedObjects.add(itm);
-                            ret = true;
-                        }
-                        ret = this._called_from_constructor_findMutations(itm) || ret;
-                    }
-                }
-                else {
-                    for (const itm of value) {
-                        if (this.removedObjects.has(itm) || this.replacedObjects.has(itm)) {
-                            this.mutatedObjects.add(itm);
-                            ret = true;
-                        }
-                        ret = this._called_from_constructor_findMutations(itm) || ret;
-                    }
-                }
-                if (this.createdObjects.has(value)) {
-                    ret = true;
-                }
-            }
-        }
-        if (ret) {
-            this.mutatedObjects.add(source);
-        }
-        return ret;
-    }
-    static getId(obj) {
-        const objectId = obj["id"];
-        if (!objectId) {
-            throw new Error("Nobs: By convention, objects stored in a Map need to have an 'id' property");
-        }
-        return objectId;
-    }
-    _called_from_constructor_cloneMap(collection) {
-        const ret = new Map();
-        const replacedCollection = this.replacedCollections.get(collection);
-        if (replacedCollection && replacedCollection instanceof Map) {
-            return replacedCollection;
-        }
-        let obj;
-        const newItems = this.createdObjects.get(collection);
-        for (const [id, itm] of collection.entries()) {
-            if (!this.removedObjects.has(itm)) {
-                obj = this.replacedObjects.get(itm);
-                if (!obj && this.mutatedObjects.has(itm)) {
-                    obj = new itm.constructor(this, itm);
-                }
-                if (!obj) {
-                    obj = itm;
-                }
-                if (newItems) {
-                    for (const newItem of newItems) {
-                        if (newItem.insertBefore === obj) {
-                            ret.set(Nobs.getId(newItem.object), newItem.object);
-                        }
-                    }
-                }
-                ret.set(id, obj);
-                if (newItems) {
-                    for (const newItem of newItems) {
-                        if (newItem.insertAfter === obj) {
-                            ret.set(Nobs.getId(newItem.object), newItem.object);
-                        }
-                    }
-                }
-            }
-        }
-        if (newItems) {
-            for (const newItem of newItems) {
-                if (newItem.insertBefore === undefined && newItem.insertAfter === undefined) {
-                    ret.set(Nobs.getId(newItem.object), newItem.object);
-                }
-            }
-        }
-        return ret;
-    }
-    _called_from_constructor_cloneArray(collection) {
-        const ret = [];
-        const replacedCollection = this.replacedCollections.get(collection);
-        if (replacedCollection && Array.isArray(replacedCollection)) {
-            return replacedCollection;
-        }
-        let obj;
-        const newItems = this.createdObjects.get(collection);
-        for (const itm of collection) {
-            if (!this.removedObjects.has(itm)) {
-                obj = this.replacedObjects.get(itm);
-                if (!obj && this.mutatedObjects.has(itm)) {
-                    obj = new itm.constructor(this, itm);
-                }
-                if (!obj) {
-                    obj = itm;
-                }
-                if (newItems) {
-                    for (const newItem of newItems) {
-                        if (newItem.insertBefore === obj) {
-                            ret.push(newItem.object);
-                        }
-                    }
-                }
-                ret.push(obj);
-                if (newItems) {
-                    for (const newItem of newItems) {
-                        if (newItem.insertAfter === obj) {
-                            ret.push(newItem.object);
-                        }
-                    }
-                }
-            }
-        }
-        if (newItems) {
-            for (const newItem of newItems) {
-                if (newItem.insertBefore === undefined && newItem.insertAfter === undefined) {
-                    ret.push(newItem.object);
-                }
-            }
-        }
-        return ret;
-    }
-}
-
-class UploadNobs extends NobsBase {
-    constructor(nobs_or_dto, source) {
-        var _a, _b, _c, _d, _e, _f, _g;
-        super(nobs_or_dto, source);
-        if (!(nobs_or_dto instanceof Nobs) && !(source instanceof UploadNobs)) {
-            const model = nobs_or_dto;
-            this.id = "";
-            this.headline = (_a = model.headline) !== null && _a !== void 0 ? _a : "";
-            this.story = (_b = model.story) !== null && _b !== void 0 ? _b : [];
-            this.date = (_c = model.date) !== null && _c !== void 0 ? _c : new Date();
-            this.location = (_d = model.location) !== null && _d !== void 0 ? _d : [];
-            this.foldername = (_e = model.foldername) !== null && _e !== void 0 ? _e : "";
-            this.popup = (_f = model.popup) !== null && _f !== void 0 ? _f : "";
-            this.image = (_g = model.image) !== null && _g !== void 0 ? _g : "";
-        }
-    }
-    ;
-    toDto() {
-        return {
-            id: "",
-            headline: this.headline,
-            story: this.story,
-            date: this.date,
-            location: this.location,
-            foldername: this.foldername,
-            popup: this.popup,
-            image: this.image
-        };
-    }
-    ;
-}
-
-const fotoUploadStyles = r$1 `
-  .foto-upload-container {
-    margin-bottom: 15px;
-  }
-
-  .file-loader {
-    position: relative;
-    width: 300px;
-    height: 40px;
-    letter-spacing: 0.5px;
-    line-height: 40px;
-    font-size: 14px;
-    font-weight: 600;
-    background-color: black;
-    color: white;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    margin: 10px 10px 15px;
-    box-shadow: var(--fuerte-box-shadow);
-    &:hover {
-      background-color: white;
-      color: black;
-      border: 1px solid black;
-    }
-  }
-
-  label {
-    cursor: pointer;
-    height: auto;
-    cursor: pointer;
-  }
-
-  input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    opacity: 0;
-    width: 100%;
-    cursor: pointer;
-  }
-
-  .preview {
-    margin: 0 10px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 300px;
-  }
-
-  img {
-    height: 60px;
-    margin: 10px;
-  }
-`;
-
-var __decorate$b = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-const fileTypes = [
-    "image/jpg",
-    "image/bmp",
-    "image/jpeg",
-    "image/png",
-    "image/tiff",
-    "image/webp",
-];
-const validFileType = (file) => fileTypes.includes(file.type);
-let WcUploadFotos = class WcUploadFotos extends h {
-    constructor(foldername, date) {
-        super();
-        this.foldername = foldername;
-        this.date = date;
-    }
-    static get styles() {
-        return [fotoUploadStyles];
-    }
-    ;
-    ;
-    updateImageDisplay(e) {
-        console.log(e.target.files);
-        const curFiles = e.target.files;
-        if (curFiles) {
-            for (const file of curFiles) {
-                if (validFileType(file)) {
-                    const image = document.createElement('img');
-                    const foldername = this.date + '_' + this.foldername;
-                    image.src = URL.createObjectURL(file);
-                    image.alt = file.name;
-                    uploadImage(file, foldername);
-                }
-            }
-            alert('files uploaded');
-        }
-    }
-    ;
-    render() {
-        return T `
-      <div class="foto-upload-container">
-        <div class="file-loader">
-          <label htmlFor='myfile'>UPLOAD FOTOS</label>
-          <input type='file' name='myfile' id='myfile' accept=".jpg, .jpeg, .png, .tiff, .bmp" className='file-input' @change=${(e) => this.updateImageDisplay(e)} multiple />
-        </div>
-        <div className="preview">
-        </div>        
-      </div>
-    `;
-    }
-    ;
-};
-__decorate$b([
-    e({ type: String })
-], WcUploadFotos.prototype, "foldername", void 0);
-__decorate$b([
-    e({ type: String })
-], WcUploadFotos.prototype, "date", void 0);
-__decorate$b([
-    o$1('.preview')
-], WcUploadFotos.prototype, "preview", void 0);
-__decorate$b([
-    o$1('.file-input')
-], WcUploadFotos.prototype, "fileInput", void 0);
-WcUploadFotos = __decorate$b([
-    n$1("wc-upload-fotos")
-], WcUploadFotos);
-
-const formStyles = r$1 `
-  form {
-    font-family: Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #555;
-    padding-right: 150px;
-    padding-top: 20px;
-  }
-
-  input {
-    font-family: Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
-    margin: 10px;
-    padding: 5px 10px;
-    width: 300px;
-    height: 40px;
-    outline: none;
-    border: 1px solid #555;
-    box-shadow: var(--fuerte-box-shadow);
-  }
-
-  textarea {
-    font-family: Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
-    margin: 10px;
-    padding: 5px 10px;
-    width: 300px;
-    height: 200px;
-    outline: none;
-    border: 1px solid #555;
-    box-shadow: var(--fuerte-box-shadow);
-  }
-
-  button {
-    font-family: Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
-    margin: 10px;
-    padding: 5px 10px;
-    width: 300px;
-    height: 40px;
-    background-color: var(--fuerte-background-color);
-    border: none;
-    outline: none;
-    color: white;
-    box-shadow: var(--fuerte-box-shadow);
-    font-weight: 600;
-    letter-spacing: 1.2px;
-    cursor: pointer;
-  }
-`;
-
-var __decorate$a = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __awaiter$4 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-let WcUploadForm = class WcUploadForm extends h {
-    static get styles() {
-        return [formStyles];
-    }
-    ;
-    setState(nobs) {
-        this.state = new UploadNobs(nobs, this.state);
-    }
-    ;
-    connectedCallback() {
-        super.connectedCallback();
-        const nobs = new Nobs();
-        nobs.setProperty(this.state, 'id', '');
-        this.setState(nobs);
-    }
-    ;
-    handleSubmit(e) {
-        return __awaiter$4(this, void 0, void 0, function* () {
-            e.preventDefault();
-            try {
-                yield createTravelDocument(this.state);
-            }
-            catch (error) {
-                console.log(error);
-            }
-        });
-    }
-    ;
-    handleChange(e) {
-        const nobs = new Nobs();
-        const name = e.target.name;
-        const value = e.target.value;
-        nobs.setProperty(this.state, name, value);
-        this.setState(nobs);
-    }
-    ;
-    handleStory(e) {
-        const nobs = new Nobs();
-        const name = e.target.name;
-        const value = e.target.value.split('_b');
-        nobs.setProperty(this.state, name, value);
-        this.setState(nobs);
-    }
-    ;
-    handleLocation(e) {
-        const nobs = new Nobs();
-        const name = e.target.name;
-        const value = e.target.value.split(',');
-        nobs.setProperty(this.state, name, value);
-        this.setState(nobs);
-    }
-    ;
-    renderFileLoader() {
-        const foldername = this.state ? this.state.foldername : '';
-        const date = this.state ? this.state.date : '';
-        return new WcUploadFotos(foldername, date);
-    }
-    ;
-    render() {
-        return T `
-      <div class="upload-form">
-        <form @submit=${this.handleSubmit}>
-          <input name="headline" type="text" placeholder="headline" @change=${this.handleChange} required>
-          <textarea name="story" placeholder="story about the day ..." @change=${this.handleStory}></textarea>
-          <input name="date" type="date" @change=${this.handleChange} required>
-          <input name="location" type="text" placeholder="location" @change=${this.handleLocation} required>
-          <input name="popup" type="text" placeholder="popup" @change=${this.handleChange} required>
-          <input name="image" type="text" placeholder="image" @change=${this.handleChange} required>
-          <input name="foldername" type="text" placeholder="folder name" @change=${this.handleChange} required>
-
-          <!-- ${this.renderFileLoader()} -->
-
-          <button type="submit">ADD FOTO STORY</button>
-        </form>
-      </div>
-    `;
-    }
-    ;
-};
-__decorate$a([
-    e({ type: Object })
-], WcUploadForm.prototype, "state", void 0);
-WcUploadForm = __decorate$a([
-    n$1("wc-upload-form")
-], WcUploadForm);
-
-var __decorate$9 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-let WcUploadPage = class WcUploadPage extends h {
-    static get styles() {
-        return [uploadStyles];
-    }
-    ;
-    render() {
-        return T `
-      <div class="upload-page">
-        <h1 class="title">Upload Foto Story</h1>
-        <wc-upload-form></wc-upload-form>
-      </div>
-    `;
-    }
-    ;
-};
-WcUploadPage = __decorate$9([
-    n$1("wc-upload-page")
-], WcUploadPage);
 
 const dialogStyles = r$1 `
   .modal {
@@ -1995,48 +944,34 @@ const dialogStyles = r$1 `
   }
 
   .modal-wrapper {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    background-color: black;
+    background-color: #fefefe;
     margin: auto;
-    height: 80vh;
-    width: 67vw;
+    width: 50vmin;
+    min-width: 500px;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.2), 0px 4px 20px rgba(0,0,0,0.2);
   }
 
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 10;
+  .pink { border-bottom: 2px solid #e35fbc; }
+  .green { border-bottom: 2px solid var(--printess-green); }
+  .magenta { border-bottom: 2px solid var(--printess-magenta); }
+  .blue { border-bottom: 2px solid var(--printess-blue); }
+
+  .modal-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    color: #fff;
+    margin-top: 10px;
+    margin-bottom: 0;
   }
 
-  .prev {
-    position: absolute;
-    top: 50%;
-    left: 10px;
-  }
-
-  .next {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-  }
-
-  img {
-    width: auto;
-    height: 100%;
-  }
-
-  @media (max-width: ${config.mobileDeviceWidth}px) {
-    .modal {
-      padding-top: 45px;
-    }
-
-    .modal-wrapper {
-      width: 70vmin;
-    }
+  .modal-title {
+    line-height: 50px;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 400;
   }
 
   wc-icon {
@@ -2044,6 +979,40 @@ const dialogStyles = r$1 `
     height: 20px;
     cursor: pointer;
     margin: 15px 20px;
+  }
+
+  .pink .modal-header { background-color: #e35fbc; }
+  .green .modal-header { background-color: var(--printess-green); }
+  .magenta .modal-header { background-color: var(--printess-magenta); }
+  .blue .modal-header { background-color: var(--printess-blue); }
+
+  .modal-content {
+    padding: 20px;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+    min-height: 160px;
+    max-height: 50vh;
+    overflow: auto;
+  }
+
+  label {
+    font-size: 14px;
+    padding-left: 2px;
+  }
+
+  input {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    width: 100%;
+    margin-top: 7px;
+    border: 1px solid rgb(118, 118, 118);
+  }
+
+  input:hover {
+    background-color: var(--printess-lightpink);
+    border: 1px solid rgb(118, 118, 118);
   }
 
   button.submit {
@@ -2060,9 +1029,33 @@ const dialogStyles = r$1 `
     font-size: 14px;
     font-weight: 400;
   }
+
+  .pink .submit { background-color: #e35fbc; }
+  .green .submit { background-color: var(--printess-green); }
+  .magenta .submit { background-color: var(--printess-magenta); }
+  .blue .submit { background-color: var(--printess-blue); }
+
+  .pink .submit:hover {
+    background-color: #e447b6;
+  }
+
+  @media (max-width: ${config.mobileDeviceWidth}px) {
+    .modal {
+      padding-top: 45px;
+    }
+
+    .modal-wrapper {
+      width: 70vmin;
+      min-width: unset;
+    }
+
+    .modal-content {
+      max-height: unset;
+    }
+  }
 `;
 
-var __decorate$8 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+var __decorate$1 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
@@ -2114,2444 +1107,9 @@ let WcBackdrop = class WcBackdrop extends h {
     }
     ;
 };
-WcBackdrop = __decorate$8([
+WcBackdrop = __decorate$1([
     n$1("wc-backdrop")
 ], WcBackdrop);
-
-var __decorate$7 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-let WcDialogImage = class WcDialogImage extends h {
-    constructor(idx, images) {
-        super();
-        this.backdrop = new WcBackdrop();
-        this.idx = idx;
-        this.images = images;
-    }
-    static get styles() {
-        return [dialogStyles];
-    }
-    ;
-    ;
-    showDialog() {
-        document.body.appendChild(this.backdrop);
-        document.body.appendChild(this);
-    }
-    ;
-    closeDialog() {
-        document.body.removeChild(this.backdrop);
-        document.body.removeChild(this);
-    }
-    ;
-    render() {
-        return T `
-      <div class="modal">
-      
-        <div class="modal-wrapper">
-          <wc-icon class="close-button" primaryColor="island" icon="close" @click=${() => this.closeDialog()}></wc-icon>
-          <wc-icon class="prev" primaryColor="island" icon="chevron-left" @click=${() => this.idx > 0 && this.idx--}></wc-icon>
-          <img src=${this.images[this.idx]} alt="fuerte">
-          <wc-icon class="next" primaryColor="island" icon="chevron-right" @click=${() => this.idx < this.images.length - 1 && this.idx++}></wc-icon>
-        </div>
-
-      </div>
-    `;
-    }
-    ;
-};
-__decorate$7([
-    e({ attribute: false, type: Number })
-], WcDialogImage.prototype, "idx", void 0);
-__decorate$7([
-    e({ attribute: false, type: Array })
-], WcDialogImage.prototype, "images", void 0);
-WcDialogImage = __decorate$7([
-    n$1("wc-dialog-image")
-], WcDialogImage);
-
-const fotostoryStyles = r$1 `
-  .fotostory-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    color: #555;
-  }
-
-  .image-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    padding: 30px 0 60px;
-  }
-
-  img {
-    width: auto;
-    height: 250px;
-    box-shadow: var(--fuerte-box-shadow);
-    margin: 20px;
-    cursor: pointer;
-  }
-
-  .lottie {
-    width: 500px;
-    height: 500px;
-  }
-
-  @media (max-width: ${config.mobileDeviceWidth}px) {
-    .title {
-      margin-bottom: 0;
-      text-align: center;
-    }
-
-    .image-container {
-      padding-top: 0px;
-    }
-
-    img {
-      width: 100%;
-      height: auto;
-      margin: 10px;
-      cursor: default;
-    }
-
-    .lottie {
-      width: 100%;
-    }
-  }
-`;
-
-var __decorate$6 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-let WcFotostory = class WcFotostory extends h {
-    constructor(fotostory) {
-        super();
-        this.fotostory = fotostory;
-    }
-    static get styles() {
-        return [fotostoryStyles];
-    }
-    ;
-    ;
-    connectedCallback() {
-        super.connectedCallback();
-        this.fotostory && this.getPics(this.fotostory.foldername);
-    }
-    ;
-    getPics(foldername) {
-        let urlList = [];
-        fetch(`https://api.github.com/repos/anjakhan/fuerteventura/contents/assets/${foldername}`)
-            .then(response => response.json())
-            .then(data => {
-            data.forEach((foto) => urlList.push(foto.download_url));
-        })
-            .catch(error => console.error(error));
-        setTimeout(() => this.images = urlList, 2000);
-    }
-    ;
-    renderImage(idx) {
-        const td = new WcDialogImage(idx, this.images);
-        td.showDialog();
-    }
-    ;
-    render() {
-        return T `
-    ${this.fotostory ? T `
-      <div class="fotostory-container">
-        <!-- <p>${this.fotostory.date}</p> -->
-        <h1 class="title">${this.fotostory.headline}</h1>
-        ${this.fotostory.story.map((story) => T `<p style="text-align: justify;">${story}</p>`)}
-        <div class="image-container">
-          ${this.images && this.images.length > 0 ? this.images.sort((a, b) => a < b ? -1 : 1).map((img, idx) => T `<img @click=${() => !config.isMobile && this.renderImage(idx)} src=${img} alt="fuerte">`) : T `<lottie-player class="lottie" src="https://assets9.lottiefiles.com/packages/lf20_mg67wxfu.json"  background="transparent"  speed="1"  loop  autoplay></lottie-player>`}
-        </div>
-        
-        
-      </div>
-    ` : T `
-      <div style="display: flex; justify-content: center; align-items: center; margin-top: 50px;">
-        <lottie-player class="lottie" src="https://assets1.lottiefiles.com/packages/lf20_ORPnX5.json"  background="transparent"  speed="1"  loop  autoplay></lottie-player>
-      </div>`}      
-    `;
-    }
-    ;
-};
-__decorate$6([
-    e({ type: Object })
-], WcFotostory.prototype, "fotostory", void 0);
-__decorate$6([
-    e({ type: Array })
-], WcFotostory.prototype, "images", void 0);
-WcFotostory = __decorate$6([
-    n$1("wc-fotostory")
-], WcFotostory);
-
-const fotoPreviewStyles = r$1 `
-  .calendar-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    color: #555;
-  }
-
-  .header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .title {
-    text-align: center;
-  }
-
-  .foto-calendar {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-shadow: var(--fuerte-box-shadow);
-    border-radius: 10px;
-    margin-top: 20px;
-    width: 640px;
-    padding-bottom: 20px;
-    background-color: #fff7e6;
-  }
-
-  img {
-    height: 415px;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-  }
-
-  .calendar-month {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    font-size: 22px;
-    font-weight: bold;
-    padding: 30px 50px 10px;
-    text-align: center;
-  }
-
-  .calendar-month wc-icon {
-    width: 30px;
-    height: 30px;
-  }
-
-  .table-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-
-  .calendar-day {
-    font-weight: bold;
-    padding: 20px 35px;
-    color: var(--fuerte-aqua);
-  }
-
-  .month {
-    display: grid;
-    grid-template-columns: repeat(7, 90px);
-    grid-template-rows: repeat(5, 50px);
-    justify-content: center;
-  }
-
-  .date-box {
-    display: flex;
-    font-weight: bold;
-    color: #555;
-    text-align: center;
-    cursor: pointer;
-    align-self: center;
-    justify-content: center;
-    align-items: center;
-    width: 90px;
-    height: 50px;
-  }
-
-  .date-text {
-    text-align: center;
-    min-width: 20px;
-    min-height: 20px;
-  }
-
-  .date-box:hover .date-text {
-    background-color: var(--fuerte-brown);
-    border-radius: 100px;
-    padding: 5px;
-    color: white;
-  }
-
-  .today {
-    background-color: var(--fuerte-aqua);
-    border-radius: 100px;
-    padding: 5px;
-    color: white;
-  }
-  
-  .date-box:hover .today {
-    background-color: var(--fuerte-aqua);
-  }
-
-  .disabled {
-    cursor: default;
-  }
-
-  .back-to-calendar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-
-  @media (max-width: ${config.mobileDeviceWidth}px) {
-    .foto-calendar {
-      margin-top: 40px;
-      width: 100%;
-    }
-
-    img {
-      width: 100%;
-      height: auto;
-    }
-
-    .calendar-day {
-      font-size: 3vmin;
-    }
-
-    .calendar-month {
-      font-size: 4vmin;
-      padding: 20px 10% 10px;
-    }
-
-    .calendar-month wc-icon {
-      height: 5vmin;
-    }
-
-    .table-header {
-      display: grid;
-      grid-template-columns: repeat(7, 13%);
-      grid-template-rows: repeat(1, 7vmin);
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-
-    .calendar-day {
-      padding: 0px;
-      align-self: center;
-    }
-  
-    .month {
-      display: grid;
-      grid-template-columns: repeat(7, 13%);
-      grid-template-rows: repeat(5, 7vmin);
-      justify-content: center;
-      align-items: center;
-      align-content: center;
-    }
-
-    .date-box {
-      width: 100%;
-      font-size: 3vmin;
-      height: 7vmin;
-    }
-
-    .date-text {
-      padding: 0.5vmin;
-      line-height: 7vmin;
-      min-width: 7vmin;
-    }
-  }
-
-  .hidden {
-    display: none;
-  }
-`;
-
-var __decorate$5 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __awaiter$3 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-let WcFotoPreview = class WcFotoPreview extends h {
-    constructor() {
-        super(...arguments);
-        this.date = new Date();
-        this.month = 'Juli';
-        this.showStory = false;
-    }
-    static get styles() {
-        return [fotoPreviewStyles];
-    }
-    ;
-    connectedCallback() {
-        super.connectedCallback();
-        this.loadFotos();
-    }
-    ;
-    loadFotos() {
-        return __awaiter$3(this, void 0, void 0, function* () {
-            const fotos = [];
-            try {
-                yield getTravelDocs()
-                    .then((data) => {
-                    data.forEach((doc) => fotos.push(doc));
-                })
-                    .catch((error) => console.log('no traveldocs found', error));
-            }
-            catch (error) {
-                console.log(error);
-            }
-            this.fotos = fotos;
-            console.log(this.fotos);
-        });
-    }
-    ;
-    renderFotostory() {
-        return new WcFotostory(this.fotostory);
-    }
-    ;
-    renderFotos(daySelected, monthSelected) {
-        if (this.month === 'Juni' && daySelected < 8)
-            return;
-        if (this.month === 'Juli' && daySelected > 6)
-            return;
-        const filter = this.fotos.filter((story) => new Date(story.date).getDate() === daySelected && new Date(story.date).getMonth() + 1 === monthSelected);
-        this.fotostory = filter[0];
-        this.showStory = true;
-    }
-    ;
-    renderJuneCalendar() {
-        const array = [];
-        for (let i = 1; i <= 30; i++) {
-            array.push(i);
-        }
-        return T `
-      <div class="date-box disabled"></div>
-      ${array.map((x, idx) => T `
-      <div class="date-box" @click=${() => this.renderFotos(idx + 1, 6)} style="cursor: ${idx < 7 ? 'default' : 'cursor'}">
-        <span class="date-text ${this.date.getDate() === idx + 1 && this.date.getMonth() === 5 ? 'today' : ''}">${idx + 1}</span>
-      </div>`)}
-      <div class="date-box disabled"></div><div class="date-box disabled"></div>
-      <div class="date-box disabled"></div><div class="date-box disabled"></div>
-    `;
-    }
-    ;
-    renderJulyCalendar() {
-        const array = [];
-        for (let i = 1; i <= 31; i++) {
-            array.push(i);
-        }
-        return T `
-      <div class="date-box disabled"></div>
-      <div class="date-box disabled"></div>
-      <div class="date-box disabled"></div>
-      ${array.map((x, idx) => T `
-      <div class="date-box" @click=${() => this.renderFotos(idx + 1, 7)} style="cursor: ${idx > 5 ? 'default' : 'cursor'}">
-        <span class="date-text ${this.date.getDate() === idx + 1 && this.date.getMonth() === 6 ? 'today' : ''}">${idx + 1}</span>
-      </div>`)}
-      <div class="date-box disabled"></div>
-    `;
-    }
-    render() {
-        return T `
-      <div class="calendar-container">
-        <!-- <div class="header">
-          <wc-icon primaryColor="aqua" icon="camera-retro-duotone" style="height: 35px; width: 35px; margin-right: 15px;"></wc-icon>
-          <h1 class="title"> Sonnige Grüße von der Insel</h1>
-          <wc-icon primaryColor="aqua" icon="camera-retro-duotone" style="height: 35px; width: 35px; margin-left: 15px;"></wc-icon>
-        </div> -->
-        <div class="foto-story-container ${this.showStory ? '' : 'hidden'}">
-          ${this.renderFotostory()}
-          <div class="back-to-calendar" @click=${() => this.showStory = false}>
-          <wc-icon primaryColor="gray" icon="angle-left" style="width: 25px; height: 25px; margin-right: 10px;"></wc-icon>
-            Zurück zum Kalender
-          </div>
-        </div>
-        <div class="foto-calendar ${this.showStory ? 'hidden' : ''}">
-          <img src=${this.month === 'Juni' ? "https://raw.githubusercontent.com/anjakhan/fuerteventura/main/assets/fuerteventura_1.jpeg" : "https://raw.githubusercontent.com/anjakhan/fuerteventura/main/assets/fuerteventura_2.jpeg"} alt="fuerte">
-          <div class="calendar-month">
-            <wc-icon primaryColor=${this.month === 'Juli' ? "warning" : "ocher"} icon="angle-left" style=${this.month === 'Juli' && 'cursor: pointer'} @click=${() => this.month = 'Juni'}></wc-icon>
-            ${this.month} 2021
-            <wc-icon primaryColor=${this.month === 'Juni' ? "warning" : "ocher"} icon="angle-right" style=${this.month === 'Juni' && 'cursor: pointer'} @click=${() => this.month = 'Juli'}></wc-icon>
-          </div>
-          <div class="table-header">
-            <div class="calendar-day">Mo</div>
-            <div class="calendar-day">Di</div>
-            <div class="calendar-day">Mi</div>
-            <div class="calendar-day">Do</div>
-            <div class="calendar-day">Fr</div>
-            <div class="calendar-day">Sa</div>
-            <div class="calendar-day">So</div>
-          </div>
-
-          <div class="month june ${this.month === 'Juni' ? '' : 'hidden'}">
-            ${this.renderJuneCalendar()}
-          </div>
-          <div class="month july ${this.month === 'Juli' ? '' : 'hidden'}">
-            ${this.renderJulyCalendar()}
-          </div>
-        </div> 
-      </div>
-    `;
-    }
-    ;
-};
-__decorate$5([
-    e({ type: Array })
-], WcFotoPreview.prototype, "fotos", void 0);
-__decorate$5([
-    e({ type: Object })
-], WcFotoPreview.prototype, "fotostory", void 0);
-__decorate$5([
-    e({ type: Object })
-], WcFotoPreview.prototype, "date", void 0);
-__decorate$5([
-    e({ type: String })
-], WcFotoPreview.prototype, "month", void 0);
-__decorate$5([
-    e({ type: Boolean })
-], WcFotoPreview.prototype, "showStory", void 0);
-WcFotoPreview = __decorate$5([
-    n$1("wc-foto-preview")
-], WcFotoPreview);
-
-const traveldetailsStyles = r$1 `
-  .travel-details-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    color: #555;
-    padding-top: 30px;
-  }
-  
-  .title {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-
-  .flight, .apartment {
-    background-color: #fff7e6;
-    box-shadow: var(--fuerte-box-shadow);
-    border-radius: 10px;
-    margin-bottom: 30px;
-  }
-
-  .apartment {
-    width: 410px;
-  }
-
-  .flight {
-    padding: 10px 30px;
-  }
-
-  .flex {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-  }
-
-  img {
-    width: 410px; 
-    border-top-right-radius: 10px; 
-    border-top-left-radius: 10px;
-  }
-
-  wc-icon {
-    width: 20px;
-    height: 20px;
-    margin: 0 10px;
-  }
-
-  @media screen and (max-width: 490px) {
-    .flight, .apartment {
-      max-width: 100%;
-    }
-
-    img {
-      max-width: 100%;
-    }
-  }
-`;
-
-var __decorate$4 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-let WcTraveldetailsPage = class WcTraveldetailsPage extends h {
-    static get styles() {
-        return [traveldetailsStyles];
-    }
-    ;
-    render() {
-        return T `
-      <div class="travel-details-container">
-        <h1 class="title">Reisedaten</h1>
-        <div class="flight">
-          <h3 class="flex">Berlin (Brandenburg) <wc-icon primaryColor="gray" icon="plane-duotone"></wc-icon> Fuerteventura</h3>
-          <p class="flex"><wc-icon primaryColor="gray" icon="calendar-alt"></wc-icon>08.06.2021</p>
-          <p class="flex"><wc-icon primaryColor="gray" icon="clock-light"></wc-icon>06:50 - 10:55 (11:55 DE)</p>
-        </div>
-        <div class="flight">
-          <h3 class="flex">Fuerteventura <wc-icon primaryColor="gray" icon="plane-duotone"></wc-icon> Berlin (Brandenburg)</h3>
-          <p class="flex"><wc-icon primaryColor="gray" icon="calendar-alt"></wc-icon>06.07.2021</p>
-          <p class="flex"><wc-icon primaryColor="gray" icon="clock-light"></wc-icon>11:30 (12:30 DE) - 17:15</p>
-        </div>
-        <div class="apartment">
-          <img src="https://raw.githubusercontent.com/anjakhan/fuerteventura/main/assets/CallePuntaPesebre.png" alt="apartment">
-          <div class="apartment-info">
-            <h3 class="flex">Casa Luciano</h3>
-            <p class="flex">Calle Punta Pesebre, 8, Jardin del Sol</p>
-            <p class="flex">Fase 1, Casa 13, Costa Calma,</p>
-            <p class="flex">Canarias 35627, Spain</p>          
-          </div>
-        </div>
-      </div>
-    `;
-    }
-    ;
-};
-WcTraveldetailsPage = __decorate$4([
-    n$1("wc-traveldetails-page")
-], WcTraveldetailsPage);
-
-const L = window.L;
-const travelledPlaces = [{
-        name: "Camino Costa Ballena",
-        location: [28.421440804718152, -13.853181596486714],
-        date: "2021-06-08"
-    }, {
-        name: "Ventura Shopping Center",
-        location: [28.05377973446309, -14.323536843021353],
-        date: "2021-06-09"
-    }, {
-        name: "La Guirra Beach",
-        location: [28.384905315405938, -13.863943972471807],
-        date: "2021-06-11"
-    }, {
-        name: "Punta del Bajo",
-        location: [28.392091960114943, -13.853954683945577],
-        date: "2021-06-11"
-    }, {
-        name: "Cuevas de Ajuy",
-        location: [28.403508295007967, -14.15554652495963],
-        date: "2021-06-12"
-    }, {
-        name: "Barranco de las Peñitas",
-        location: [28.388711737434996, -14.10026879269423],
-        date: "2021-06-12"
-    }, {
-        name: "Gran Tarajal",
-        location: [28.211533376782686, -14.021162616671948],
-        date: "2021-06-15"
-    }, {
-        name: "Aeródromo Abandonado",
-        location: [28.08815093604716, -14.491244940249455],
-        date: "2021-06-18"
-    }, {
-        name: "Faro de Punta Jandía",
-        location: [28.065974396783957, -14.507462812109857],
-        date: "2021-06-18"
-    }, {
-        name: "El Puertito",
-        location: [28.07315393494029, -14.50021239147925],
-        date: "2021-06-18"
-    }, {
-        name: "Casa Winter",
-        location: [28.102345138975522, -14.37578766980999],
-        date: "2021-06-18"
-    }, {
-        name: "Playa de Cofete",
-        location: [28.11044360840116, -14.387941738698748],
-        date: "2021-06-18"
-    }, {
-        name: "Playa de Tebeto",
-        location: [28.59043711382251, -14.034491306410063],
-        date: "2021-06-19"
-    }, {
-        name: "Museo del Queso Majorero & Windmill at Cactus Garden",
-        location: [28.431295609244707, -14.012616205774854],
-        date: "2021-06-19"
-    }, {
-        name: "Centro de Interpretacion de los Molinos",
-        location: [28.352985591513775, -14.03526101434743],
-        date: "2021-06-19"
-    }, {
-        name: "El Cotillo",
-        location: [28.679841817744123, -14.01047660295504],
-        date: "2021-06-27"
-    }, {
-        name: "Faro del Tostón",
-        location: [28.715918564960514, -14.013894141895339],
-        date: "2021-06-27"
-    }, {
-        name: "Majanicho (Popcornstrand)",
-        location: [28.738853756396498, -13.937284246969872],
-        date: "2021-06-27"
-    }, {
-        name: "Faro de La Entallada",
-        location: [28.230186008337327, -13.948505129072634],
-        date: "2021-06-29"
-    }, {
-        name: "Playa de los Molinos",
-        location: [28.543041483673917, -14.06324981603934],
-        date: "2021-07-02"
-    }, {
-        name: "The Crunch",
-        location: [28.159049607129603, -14.228790129156828],
-        date: "2021-07-04"
-    }];
-const createMap = (mapid, fotostory) => {
-    const zoom = config.isMobile ? 9 : 10;
-    const map = L.map(mapid).setView([28.378412972969333, -14.115175194361001], zoom);
-    const date = new Date().getDate();
-    const month = new Date().getMonth() + 1;
-    L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: '&copy;<a href="http://www.esri.com/">Esri</a>i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
-        maxZoom: 18,
-    }).addTo(map);
-    fotostory && fotostory.map((story) => {
-        const marker = L.marker([parseFloat(story.location[0]), parseFloat(story.location[1])]).addTo(map).bindPopup(`<b>${story.popup}</b><br>${story.date}`);
-        new Date(story.date).getDate() === date - 1 && new Date(story.date).getMonth() + 1 === month && marker.openPopup();
-    });
-    travelledPlaces.map(p => {
-        L.marker(p.location).addTo(map).bindPopup(`<b>${p.name}</b><br>${p.date}`);
-    });
-};
-const sightseeings = [{
-        name: "Playa de La Señora",
-        location: [28.05506304878142, -14.385447896561574]
-    }, {
-        name: "Puerto Morro Jable",
-        location: [28.04925525097606, -14.358251774389876]
-    }, {
-        name: "Pozo Negro von Klippen aus",
-        location: [28.32364665275606, -13.8956818333923]
-    }, {
-        name: "Playa de Garcey",
-        location: [28.34465358106306, -14.178945913729404]
-    }, {
-        name: "Playa de la Solapa",
-        location: [28.364255577905794, -14.165528766748274]
-    }, {
-        name: "Playa de los Mozos",
-        location: [28.494250744508356, -14.089520973244307]
-    }, {
-        name: "Playa de Jarubio",
-        location: [28.571466079367408, -14.047987991584325]
-    }, {
-        name: "Piedra Playa",
-        location: [28.665503322445627, -14.012452738522926]
-    }, {
-        name: "Playa & Cueva de Playa en Tarajalejo & Tuineje mirador terraza",
-        location: [28.19059836096522, -14.111664362247657]
-    }, {
-        name: "Montaña de Tindaya",
-        location: [28.583962147073578, -13.96742533840112]
-    }];
-const createToDoMap = (mapid) => {
-    const zoom = config.isMobile ? 9 : 10;
-    const map = L.map(mapid).setView([28.378412972969333, -14.115175194361001], zoom);
-    L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: '&copy;<a href="http://www.esri.com/">Esri</a>i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
-        maxZoom: 18,
-    }).addTo(map);
-    sightseeings.map((s) => {
-        L.marker(s.location).addTo(map).bindPopup(`<b>${s.name}</b><br>${s.location}`);
-    });
-};
-
-const mapStyles$1 = r$1 `
-  /* .leaflet-map-pane {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  } */
-
-  img {
-    position: absolute;
-  }
-  /* .leaflet-control-container {
-    position: fixed;
-    bottom: 10px;
-    right: 20px;
-    padding: 10px 20px;
-    z-index: 10;
-    font-size: 10px;
-    color: white;
-  }
-
-  .leaflet-control-container a {
-    color: var(--fuerte-aqua);
-  }
-
-  .leaflet-control-zoom-out, .leaflet-control-zoom-in {
-    position: fixed;
-    background-color: white;
-    border-radius: 4px;
-    color: #555;
-    padding: 5px 7px;
-    top: 70;
-    right: 30;
-    text-decoration: none;
-  }
-
-  .leaflet-control-zoom-out a, .leaflet-control-zoom-in a {
-    color: #555;
-  }
-
-  .leaflet-control-zoom-in {
-    right: 55px;
-  } */
-
-  /* required styles */
-
-.leaflet-pane,
-.leaflet-tile,
-.leaflet-marker-icon,
-.leaflet-marker-shadow,
-.leaflet-tile-container,
-.leaflet-pane > svg,
-.leaflet-pane > canvas,
-.leaflet-zoom-box,
-.leaflet-image-layer,
-.leaflet-layer {
-	position: absolute;
-	left: 0;
-	top: 0;
-	}
-.leaflet-container {
-	overflow: hidden;
-	}
-.leaflet-tile,
-.leaflet-marker-icon,
-.leaflet-marker-shadow {
-	-webkit-user-select: none;
-	   -moz-user-select: none;
-	        user-select: none;
-	  -webkit-user-drag: none;
-	}
-/* Prevents IE11 from highlighting tiles in blue */
-.leaflet-tile::selection {
-	background: transparent;
-}
-/* Safari renders non-retina tile on retina better with this, but Chrome is worse */
-.leaflet-safari .leaflet-tile {
-	image-rendering: -webkit-optimize-contrast;
-	}
-/* hack that prevents hw layers "stretching" when loading new tiles */
-.leaflet-safari .leaflet-tile-container {
-	width: 1600px;
-	height: 1600px;
-	-webkit-transform-origin: 0 0;
-	}
-.leaflet-marker-icon,
-.leaflet-marker-shadow {
-	display: block;
-	}
-/* .leaflet-container svg: reset svg max-width decleration shipped in Joomla! (joomla.org) 3.x */
-/* .leaflet-container img: map is broken in FF if you have max-width: 100% on tiles */
-.leaflet-container .leaflet-overlay-pane svg,
-.leaflet-container .leaflet-marker-pane img,
-.leaflet-container .leaflet-shadow-pane img,
-.leaflet-container .leaflet-tile-pane img,
-.leaflet-container img.leaflet-image-layer,
-.leaflet-container .leaflet-tile {
-	max-width: none !important;
-	max-height: none !important;
-	}
-
-.leaflet-container.leaflet-touch-zoom {
-	-ms-touch-action: pan-x pan-y;
-	touch-action: pan-x pan-y;
-	}
-.leaflet-container.leaflet-touch-drag {
-	-ms-touch-action: pinch-zoom;
-	/* Fallback for FF which doesn't support pinch-zoom */
-	touch-action: none;
-	touch-action: pinch-zoom;
-}
-.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
-	-ms-touch-action: none;
-	touch-action: none;
-}
-.leaflet-container {
-	-webkit-tap-highlight-color: transparent;
-}
-.leaflet-container a {
-	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
-}
-.leaflet-tile {
-	filter: inherit;
-	visibility: hidden;
-	}
-.leaflet-tile-loaded {
-	visibility: inherit;
-	}
-.leaflet-zoom-box {
-	width: 0;
-	height: 0;
-	-moz-box-sizing: border-box;
-	     box-sizing: border-box;
-	z-index: 800;
-	}
-/* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */
-.leaflet-overlay-pane svg {
-	-moz-user-select: none;
-	}
-
-.leaflet-pane         { z-index: 400; }
-
-.leaflet-tile-pane    { z-index: 200; }
-.leaflet-overlay-pane { z-index: 400; }
-.leaflet-shadow-pane  { z-index: 500; }
-.leaflet-marker-pane  { z-index: 600; }
-.leaflet-tooltip-pane   { z-index: 650; }
-.leaflet-popup-pane   { z-index: 700; }
-
-.leaflet-map-pane canvas { z-index: 100; }
-.leaflet-map-pane svg    { z-index: 200; }
-
-.leaflet-vml-shape {
-	width: 1px;
-	height: 1px;
-	}
-.lvml {
-	behavior: url(#default#VML);
-	display: inline-block;
-	position: absolute;
-	}
-
-
-/* control positioning */
-
-.leaflet-control {
-	position: relative;
-	z-index: 800;
-	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
-	pointer-events: auto;
-	}
-.leaflet-top,
-.leaflet-bottom {
-	position: absolute;
-	z-index: 1000;
-	pointer-events: none;
-	}
-.leaflet-top {
-	top: 60;
-	}
-.leaflet-right {
-	right: 0;
-	}
-.leaflet-bottom {
-	bottom: 0;
-	}
-.leaflet-left {
-	left: 10;
-	}
-.leaflet-control {
-	float: right;
-	clear: both;
-	}
-.leaflet-right .leaflet-control {
-	float: right;
-	}
-.leaflet-top .leaflet-control {
-	margin-top: 10px;
-	}
-.leaflet-bottom .leaflet-control {
-	margin-bottom: 10px;
-	}
-.leaflet-left .leaflet-control {
-	margin-left: 10px;
-	}
-.leaflet-right .leaflet-control {
-	margin-right: 10px;
-	}
-
-
-/* zoom and fade animations */
-
-.leaflet-fade-anim .leaflet-tile {
-	will-change: opacity;
-	}
-.leaflet-fade-anim .leaflet-popup {
-	opacity: 0;
-	-webkit-transition: opacity 0.2s linear;
-	   -moz-transition: opacity 0.2s linear;
-	        transition: opacity 0.2s linear;
-	}
-.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
-	opacity: 1;
-	}
-.leaflet-zoom-animated {
-	-webkit-transform-origin: 0 0;
-	    -ms-transform-origin: 0 0;
-	        transform-origin: 0 0;
-	}
-.leaflet-zoom-anim .leaflet-zoom-animated {
-	will-change: transform;
-	}
-.leaflet-zoom-anim .leaflet-zoom-animated {
-	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
-	   -moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);
-	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
-	}
-.leaflet-zoom-anim .leaflet-tile,
-.leaflet-pan-anim .leaflet-tile {
-	-webkit-transition: none;
-	   -moz-transition: none;
-	        transition: none;
-	}
-
-.leaflet-zoom-anim .leaflet-zoom-hide {
-	visibility: hidden;
-	}
-
-
-/* cursors */
-
-.leaflet-interactive {
-	cursor: pointer;
-	}
-.leaflet-grab {
-	cursor: -webkit-grab;
-	cursor:    -moz-grab;
-	cursor:         grab;
-	}
-.leaflet-crosshair,
-.leaflet-crosshair .leaflet-interactive {
-	cursor: crosshair;
-	}
-.leaflet-popup-pane,
-.leaflet-control {
-	cursor: auto;
-	}
-.leaflet-dragging .leaflet-grab,
-.leaflet-dragging .leaflet-grab .leaflet-interactive,
-.leaflet-dragging .leaflet-marker-draggable {
-	cursor: move;
-	cursor: -webkit-grabbing;
-	cursor:    -moz-grabbing;
-	cursor:         grabbing;
-	}
-
-/* marker & overlays interactivity */
-.leaflet-marker-icon,
-.leaflet-marker-shadow,
-.leaflet-image-layer,
-.leaflet-pane > svg path,
-.leaflet-tile-container {
-	pointer-events: none;
-	}
-
-.leaflet-marker-icon.leaflet-interactive,
-.leaflet-image-layer.leaflet-interactive,
-.leaflet-pane > svg path.leaflet-interactive,
-svg.leaflet-image-layer.leaflet-interactive path {
-	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
-	pointer-events: auto;
-	}
-
-/* visual tweaks */
-
-.leaflet-container {
-	background: #ddd;
-	outline: 0;
-	}
-.leaflet-container a {
-	color: #0078A8;
-	}
-.leaflet-container a.leaflet-active {
-	outline: 2px solid orange;
-	}
-.leaflet-zoom-box {
-	border: 2px dotted #38f;
-	background: rgba(255,255,255,0.5);
-	}
-
-
-/* general typography */
-.leaflet-container {
-	font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
-	}
-
-
-/* general toolbar styles */
-
-.leaflet-bar {
-	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
-	border-radius: 4px;
-	}
-.leaflet-bar a,
-.leaflet-bar a:hover {
-	background-color: #fff;
-	border-bottom: 1px solid #ccc;
-	width: 26px;
-	height: 26px;
-	line-height: 26px;
-	display: block;
-	text-align: center;
-	text-decoration: none;
-	color: black;
-	}
-.leaflet-bar a,
-.leaflet-control-layers-toggle {
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	display: block;
-	}
-.leaflet-bar a:hover {
-	background-color: #f4f4f4;
-	}
-.leaflet-bar a:first-child {
-	border-top-left-radius: 4px;
-	border-top-right-radius: 4px;
-	}
-.leaflet-bar a:last-child {
-	border-bottom-left-radius: 4px;
-	border-bottom-right-radius: 4px;
-	border-bottom: none;
-	}
-.leaflet-bar a.leaflet-disabled {
-	cursor: default;
-	background-color: #f4f4f4;
-	color: #bbb;
-	}
-
-.leaflet-touch .leaflet-bar a {
-	width: 30px;
-	height: 30px;
-	line-height: 30px;
-	}
-.leaflet-touch .leaflet-bar a:first-child {
-	border-top-left-radius: 2px;
-	border-top-right-radius: 2px;
-	}
-.leaflet-touch .leaflet-bar a:last-child {
-	border-bottom-left-radius: 2px;
-	border-bottom-right-radius: 2px;
-	}
-
-/* zoom control */
-
-.leaflet-control-zoom-in,
-.leaflet-control-zoom-out {
-	font: bold 18px 'Lucida Console', Monaco, monospace;
-	text-indent: 1px;
-	}
-
-.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {
-	font-size: 22px;
-	}
-
-
-/* layers control */
-
-.leaflet-control-layers {
-	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
-	background: #fff;
-	border-radius: 5px;
-	}
-.leaflet-control-layers-toggle {
-	background-image: url(images/layers.png);
-	width: 36px;
-	height: 36px;
-	}
-.leaflet-retina .leaflet-control-layers-toggle {
-	background-image: url(images/layers-2x.png);
-	background-size: 26px 26px;
-	}
-.leaflet-touch .leaflet-control-layers-toggle {
-	width: 44px;
-	height: 44px;
-	}
-.leaflet-control-layers .leaflet-control-layers-list,
-.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
-	display: none;
-	}
-.leaflet-control-layers-expanded .leaflet-control-layers-list {
-	display: block;
-	position: relative;
-	}
-.leaflet-control-layers-expanded {
-	padding: 6px 10px 6px 6px;
-	color: #333;
-	background: #fff;
-	}
-.leaflet-control-layers-scrollbar {
-	overflow-y: scroll;
-	overflow-x: hidden;
-	padding-right: 5px;
-	}
-.leaflet-control-layers-selector {
-	margin-top: 2px;
-	position: relative;
-	top: 1px;
-	}
-.leaflet-control-layers label {
-	display: block;
-	}
-.leaflet-control-layers-separator {
-	height: 0;
-	border-top: 1px solid #ddd;
-	margin: 5px -10px 5px -6px;
-	}
-
-/* Default icon URLs */
-.leaflet-default-icon-path {
-	background-image: url(images/marker-icon.png);
-	}
-
-
-/* attribution and scale controls */
-
-.leaflet-container .leaflet-control-attribution {
-	background: #fff;
-	background: rgba(255, 255, 255, 0.7);
-	margin: 0;
-	}
-.leaflet-control-attribution,
-.leaflet-control-scale-line {
-	padding: 0 5px;
-	color: #333;
-	}
-.leaflet-control-attribution a {
-	text-decoration: none;
-	}
-.leaflet-control-attribution a:hover {
-	text-decoration: underline;
-	}
-.leaflet-container .leaflet-control-attribution,
-.leaflet-container .leaflet-control-scale {
-	font-size: 11px;
-	}
-.leaflet-left .leaflet-control-scale {
-	margin-left: 5px;
-	}
-.leaflet-bottom .leaflet-control-scale {
-	margin-bottom: 5px;
-	}
-.leaflet-control-scale-line {
-	border: 2px solid #777;
-	border-top: none;
-	line-height: 1.1;
-	padding: 2px 5px 1px;
-	font-size: 11px;
-	white-space: nowrap;
-	overflow: hidden;
-	-moz-box-sizing: border-box;
-	     box-sizing: border-box;
-
-	background: #fff;
-	background: rgba(255, 255, 255, 0.5);
-	}
-.leaflet-control-scale-line:not(:first-child) {
-	border-top: 2px solid #777;
-	border-bottom: none;
-	margin-top: -2px;
-	}
-.leaflet-control-scale-line:not(:first-child):not(:last-child) {
-	border-bottom: 2px solid #777;
-	}
-
-.leaflet-touch .leaflet-control-attribution,
-.leaflet-touch .leaflet-control-layers,
-.leaflet-touch .leaflet-bar {
-	box-shadow: none;
-	}
-.leaflet-touch .leaflet-control-layers,
-.leaflet-touch .leaflet-bar {
-	border: 2px solid rgba(0,0,0,0.2);
-	background-clip: padding-box;
-	}
-
-
-/* popup */
-
-.leaflet-popup {
-	position: absolute;
-	text-align: center;
-	margin-bottom: 20px;
-	}
-.leaflet-popup-content-wrapper {
-	padding: 1px;
-	text-align: left;
-	border-radius: 12px;
-	}
-.leaflet-popup-content {
-	margin: 13px 19px;
-	line-height: 1.4;
-	}
-.leaflet-popup-content p {
-	margin: 18px 0;
-	}
-.leaflet-popup-tip-container {
-	width: 40px;
-	height: 20px;
-	position: absolute;
-	left: 50%;
-	margin-left: -20px;
-	overflow: hidden;
-	pointer-events: none;
-	}
-.leaflet-popup-tip {
-	width: 17px;
-	height: 17px;
-	padding: 1px;
-
-	margin: -10px auto 0;
-
-	-webkit-transform: rotate(45deg);
-	   -moz-transform: rotate(45deg);
-	    -ms-transform: rotate(45deg);
-	        transform: rotate(45deg);
-	}
-.leaflet-popup-content-wrapper,
-.leaflet-popup-tip {
-	background: white;
-	color: #333;
-	box-shadow: 0 3px 14px rgba(0,0,0,0.4);
-	}
-.leaflet-container a.leaflet-popup-close-button {
-	position: absolute;
-	top: 0;
-	right: 0;
-	padding: 4px 4px 0 0;
-	border: none;
-	text-align: center;
-	width: 18px;
-	height: 14px;
-	font: 16px/14px Tahoma, Verdana, sans-serif;
-	color: #c3c3c3;
-	text-decoration: none;
-	font-weight: bold;
-	background: transparent;
-	}
-.leaflet-container a.leaflet-popup-close-button:hover {
-	color: #999;
-	}
-.leaflet-popup-scrolled {
-	overflow: auto;
-	border-bottom: 1px solid #ddd;
-	border-top: 1px solid #ddd;
-	}
-
-.leaflet-oldie .leaflet-popup-content-wrapper {
-	-ms-zoom: 1;
-	}
-.leaflet-oldie .leaflet-popup-tip {
-	width: 24px;
-	margin: 0 auto;
-
-	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
-	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
-	}
-.leaflet-oldie .leaflet-popup-tip-container {
-	margin-top: -1px;
-	}
-
-.leaflet-oldie .leaflet-control-zoom,
-.leaflet-oldie .leaflet-control-layers,
-.leaflet-oldie .leaflet-popup-content-wrapper,
-.leaflet-oldie .leaflet-popup-tip {
-	border: 1px solid #999;
-	}
-
-
-/* div icon */
-
-.leaflet-div-icon {
-	background: #fff;
-	border: 1px solid #666;
-	}
-
-
-/* Tooltip */
-/* Base styles for the element that has a tooltip */
-.leaflet-tooltip {
-	position: absolute;
-	padding: 6px;
-	background-color: #fff;
-	border: 1px solid #fff;
-	border-radius: 3px;
-	color: #222;
-	white-space: nowrap;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	pointer-events: none;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-	}
-.leaflet-tooltip.leaflet-clickable {
-	cursor: pointer;
-	pointer-events: auto;
-	}
-.leaflet-tooltip-top:before,
-.leaflet-tooltip-bottom:before,
-.leaflet-tooltip-left:before,
-.leaflet-tooltip-right:before {
-	position: absolute;
-	pointer-events: none;
-	border: 6px solid transparent;
-	background: transparent;
-	content: "";
-	}
-
-/* Directions */
-
-.leaflet-tooltip-bottom {
-	margin-top: 6px;
-}
-.leaflet-tooltip-top {
-	margin-top: -6px;
-}
-.leaflet-tooltip-bottom:before,
-.leaflet-tooltip-top:before {
-	left: 50%;
-	margin-left: -6px;
-	}
-.leaflet-tooltip-top:before {
-	bottom: 0;
-	margin-bottom: -12px;
-	border-top-color: #fff;
-	}
-.leaflet-tooltip-bottom:before {
-	top: 0;
-	margin-top: -12px;
-	margin-left: -6px;
-	border-bottom-color: #fff;
-	}
-.leaflet-tooltip-left {
-	margin-left: -6px;
-}
-.leaflet-tooltip-right {
-	margin-left: 6px;
-}
-.leaflet-tooltip-left:before,
-.leaflet-tooltip-right:before {
-	top: 50%;
-	margin-top: -6px;
-	}
-.leaflet-tooltip-left:before {
-	right: 0;
-	margin-right: -12px;
-	border-left-color: #fff;
-	}
-.leaflet-tooltip-right:before {
-	left: 0;
-	margin-left: -12px;
-	border-right-color: #fff;
-	}
-
-  #mapid {
-    position: fixed;
-    top: 0;
-    left: 200;
-  }
-
-  @media (max-width: ${config.mobileDeviceWidth}px) {
-    #mapid {
-      height: 100vh!important;
-			left: 0;
-    }
-.leaflet-left {
-	left: 0;
-	}
-.leaflet-top {
-	top: 60;
-	}
-  }
-`;
-
-var __decorate$3 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __awaiter$2 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-let WcFuerteMapPage = class WcFuerteMapPage extends h {
-    static get styles() {
-        return [mapStyles$1];
-    }
-    ;
-    connectedCallback() {
-        super.connectedCallback();
-        this.loadFotos();
-    }
-    ;
-    loadFotos() {
-        return __awaiter$2(this, void 0, void 0, function* () {
-            const fotos = [];
-            try {
-                yield getTravelDocs()
-                    .then((data) => {
-                    data.forEach((doc) => fotos.push(doc));
-                })
-                    .catch((error) => console.log('no traveldocs found', error));
-            }
-            catch (error) {
-                console.log(error);
-            }
-            this.fotos = fotos;
-            console.log(this.fotos);
-        });
-    }
-    ;
-    renderMap() {
-        var _a;
-        const mapContainer = document.createElement('div');
-        mapContainer.setAttribute('id', 'mapid');
-        mapContainer.style.height = '100vh';
-        mapContainer.style.width = '100vw';
-        (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.append(mapContainer);
-        createMap(mapContainer, this.fotos);
-    }
-    ;
-    render() {
-        return T `
-        ${this.renderMap()}
-    `;
-    }
-    ;
-};
-__decorate$3([
-    e({ type: Array })
-], WcFuerteMapPage.prototype, "fotos", void 0);
-__decorate$3([
-    o$1('#mapid')
-], WcFuerteMapPage.prototype, "mapid", void 0);
-WcFuerteMapPage = __decorate$3([
-    n$1("wc-fuerte-map-page")
-], WcFuerteMapPage);
-
-const mapStyles = r$1 `
-  /* .leaflet-map-pane {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  } */
-
-  img {
-    position: absolute;
-  }
-  /* .leaflet-control-container {
-    position: fixed;
-    bottom: 10px;
-    right: 20px;
-    padding: 10px 20px;
-    z-index: 10;
-    font-size: 10px;
-    color: white;
-  }
-
-  .leaflet-control-container a {
-    color: var(--fuerte-aqua);
-  }
-
-  .leaflet-control-zoom-out, .leaflet-control-zoom-in {
-    position: fixed;
-    background-color: white;
-    border-radius: 4px;
-    color: #555;
-    padding: 5px 7px;
-    top: 70;
-    right: 30;
-    text-decoration: none;
-  }
-
-  .leaflet-control-zoom-out a, .leaflet-control-zoom-in a {
-    color: #555;
-  }
-
-  .leaflet-control-zoom-in {
-    right: 55px;
-  } */
-
-  /* required styles */
-
-.leaflet-pane,
-.leaflet-tile,
-.leaflet-marker-icon,
-.leaflet-marker-shadow,
-.leaflet-tile-container,
-.leaflet-pane > svg,
-.leaflet-pane > canvas,
-.leaflet-zoom-box,
-.leaflet-image-layer,
-.leaflet-layer {
-	position: absolute;
-	left: 0;
-	top: 0;
-	}
-.leaflet-container {
-	overflow: hidden;
-	}
-.leaflet-tile,
-.leaflet-marker-icon,
-.leaflet-marker-shadow {
-	-webkit-user-select: none;
-	   -moz-user-select: none;
-	        user-select: none;
-	  -webkit-user-drag: none;
-	}
-/* Prevents IE11 from highlighting tiles in blue */
-.leaflet-tile::selection {
-	background: transparent;
-}
-/* Safari renders non-retina tile on retina better with this, but Chrome is worse */
-.leaflet-safari .leaflet-tile {
-	image-rendering: -webkit-optimize-contrast;
-	}
-/* hack that prevents hw layers "stretching" when loading new tiles */
-.leaflet-safari .leaflet-tile-container {
-	width: 1600px;
-	height: 1600px;
-	-webkit-transform-origin: 0 0;
-	}
-.leaflet-marker-icon,
-.leaflet-marker-shadow {
-	display: block;
-	}
-/* .leaflet-container svg: reset svg max-width decleration shipped in Joomla! (joomla.org) 3.x */
-/* .leaflet-container img: map is broken in FF if you have max-width: 100% on tiles */
-.leaflet-container .leaflet-overlay-pane svg,
-.leaflet-container .leaflet-marker-pane img,
-.leaflet-container .leaflet-shadow-pane img,
-.leaflet-container .leaflet-tile-pane img,
-.leaflet-container img.leaflet-image-layer,
-.leaflet-container .leaflet-tile {
-	max-width: none !important;
-	max-height: none !important;
-	}
-
-.leaflet-container.leaflet-touch-zoom {
-	-ms-touch-action: pan-x pan-y;
-	touch-action: pan-x pan-y;
-	}
-.leaflet-container.leaflet-touch-drag {
-	-ms-touch-action: pinch-zoom;
-	/* Fallback for FF which doesn't support pinch-zoom */
-	touch-action: none;
-	touch-action: pinch-zoom;
-}
-.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
-	-ms-touch-action: none;
-	touch-action: none;
-}
-.leaflet-container {
-	-webkit-tap-highlight-color: transparent;
-}
-.leaflet-container a {
-	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
-}
-.leaflet-tile {
-	filter: inherit;
-	visibility: hidden;
-	}
-.leaflet-tile-loaded {
-	visibility: inherit;
-	}
-.leaflet-zoom-box {
-	width: 0;
-	height: 0;
-	-moz-box-sizing: border-box;
-	     box-sizing: border-box;
-	z-index: 800;
-	}
-/* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */
-.leaflet-overlay-pane svg {
-	-moz-user-select: none;
-	}
-
-.leaflet-pane         { z-index: 400; }
-
-.leaflet-tile-pane    { z-index: 200; }
-.leaflet-overlay-pane { z-index: 400; }
-.leaflet-shadow-pane  { z-index: 500; }
-.leaflet-marker-pane  { z-index: 600; }
-.leaflet-tooltip-pane   { z-index: 650; }
-.leaflet-popup-pane   { z-index: 700; }
-
-.leaflet-map-pane canvas { z-index: 100; }
-.leaflet-map-pane svg    { z-index: 200; }
-
-.leaflet-vml-shape {
-	width: 1px;
-	height: 1px;
-	}
-.lvml {
-	behavior: url(#default#VML);
-	display: inline-block;
-	position: absolute;
-	}
-
-
-/* control positioning */
-
-.leaflet-control {
-	position: relative;
-	z-index: 800;
-	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
-	pointer-events: auto;
-	}
-.leaflet-top,
-.leaflet-bottom {
-	position: absolute;
-	z-index: 1000;
-	pointer-events: none;
-	}
-.leaflet-top {
-	top: 60;
-	}
-.leaflet-right {
-	right: 0;
-	}
-.leaflet-bottom {
-	bottom: 0;
-	}
-.leaflet-left {
-	left: 10;
-	}
-.leaflet-control {
-	float: right;
-	clear: both;
-	}
-.leaflet-right .leaflet-control {
-	float: right;
-	}
-.leaflet-top .leaflet-control {
-	margin-top: 10px;
-	}
-.leaflet-bottom .leaflet-control {
-	margin-bottom: 10px;
-	}
-.leaflet-left .leaflet-control {
-	margin-left: 10px;
-	}
-.leaflet-right .leaflet-control {
-	margin-right: 10px;
-	}
-
-
-/* zoom and fade animations */
-
-.leaflet-fade-anim .leaflet-tile {
-	will-change: opacity;
-	}
-.leaflet-fade-anim .leaflet-popup {
-	opacity: 0;
-	-webkit-transition: opacity 0.2s linear;
-	   -moz-transition: opacity 0.2s linear;
-	        transition: opacity 0.2s linear;
-	}
-.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
-	opacity: 1;
-	}
-.leaflet-zoom-animated {
-	-webkit-transform-origin: 0 0;
-	    -ms-transform-origin: 0 0;
-	        transform-origin: 0 0;
-	}
-.leaflet-zoom-anim .leaflet-zoom-animated {
-	will-change: transform;
-	}
-.leaflet-zoom-anim .leaflet-zoom-animated {
-	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
-	   -moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);
-	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
-	}
-.leaflet-zoom-anim .leaflet-tile,
-.leaflet-pan-anim .leaflet-tile {
-	-webkit-transition: none;
-	   -moz-transition: none;
-	        transition: none;
-	}
-
-.leaflet-zoom-anim .leaflet-zoom-hide {
-	visibility: hidden;
-	}
-
-
-/* cursors */
-
-.leaflet-interactive {
-	cursor: pointer;
-	}
-.leaflet-grab {
-	cursor: -webkit-grab;
-	cursor:    -moz-grab;
-	cursor:         grab;
-	}
-.leaflet-crosshair,
-.leaflet-crosshair .leaflet-interactive {
-	cursor: crosshair;
-	}
-.leaflet-popup-pane,
-.leaflet-control {
-	cursor: auto;
-	}
-.leaflet-dragging .leaflet-grab,
-.leaflet-dragging .leaflet-grab .leaflet-interactive,
-.leaflet-dragging .leaflet-marker-draggable {
-	cursor: move;
-	cursor: -webkit-grabbing;
-	cursor:    -moz-grabbing;
-	cursor:         grabbing;
-	}
-
-/* marker & overlays interactivity */
-.leaflet-marker-icon,
-.leaflet-marker-shadow,
-.leaflet-image-layer,
-.leaflet-pane > svg path,
-.leaflet-tile-container {
-	pointer-events: none;
-	}
-
-.leaflet-marker-icon.leaflet-interactive,
-.leaflet-image-layer.leaflet-interactive,
-.leaflet-pane > svg path.leaflet-interactive,
-svg.leaflet-image-layer.leaflet-interactive path {
-	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
-	pointer-events: auto;
-	}
-
-/* visual tweaks */
-
-.leaflet-container {
-	background: #ddd;
-	outline: 0;
-	}
-.leaflet-container a {
-	color: #0078A8;
-	}
-.leaflet-container a.leaflet-active {
-	outline: 2px solid orange;
-	}
-.leaflet-zoom-box {
-	border: 2px dotted #38f;
-	background: rgba(255,255,255,0.5);
-	}
-
-
-/* general typography */
-.leaflet-container {
-	font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
-	}
-
-
-/* general toolbar styles */
-
-.leaflet-bar {
-	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
-	border-radius: 4px;
-	}
-.leaflet-bar a,
-.leaflet-bar a:hover {
-	background-color: #fff;
-	border-bottom: 1px solid #ccc;
-	width: 26px;
-	height: 26px;
-	line-height: 26px;
-	display: block;
-	text-align: center;
-	text-decoration: none;
-	color: black;
-	}
-.leaflet-bar a,
-.leaflet-control-layers-toggle {
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	display: block;
-	}
-.leaflet-bar a:hover {
-	background-color: #f4f4f4;
-	}
-.leaflet-bar a:first-child {
-	border-top-left-radius: 4px;
-	border-top-right-radius: 4px;
-	}
-.leaflet-bar a:last-child {
-	border-bottom-left-radius: 4px;
-	border-bottom-right-radius: 4px;
-	border-bottom: none;
-	}
-.leaflet-bar a.leaflet-disabled {
-	cursor: default;
-	background-color: #f4f4f4;
-	color: #bbb;
-	}
-
-.leaflet-touch .leaflet-bar a {
-	width: 30px;
-	height: 30px;
-	line-height: 30px;
-	}
-.leaflet-touch .leaflet-bar a:first-child {
-	border-top-left-radius: 2px;
-	border-top-right-radius: 2px;
-	}
-.leaflet-touch .leaflet-bar a:last-child {
-	border-bottom-left-radius: 2px;
-	border-bottom-right-radius: 2px;
-	}
-
-/* zoom control */
-
-.leaflet-control-zoom-in,
-.leaflet-control-zoom-out {
-	font: bold 18px 'Lucida Console', Monaco, monospace;
-	text-indent: 1px;
-	}
-
-.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {
-	font-size: 22px;
-	}
-
-
-/* layers control */
-
-.leaflet-control-layers {
-	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
-	background: #fff;
-	border-radius: 5px;
-	}
-.leaflet-control-layers-toggle {
-	background-image: url(images/layers.png);
-	width: 36px;
-	height: 36px;
-	}
-.leaflet-retina .leaflet-control-layers-toggle {
-	background-image: url(images/layers-2x.png);
-	background-size: 26px 26px;
-	}
-.leaflet-touch .leaflet-control-layers-toggle {
-	width: 44px;
-	height: 44px;
-	}
-.leaflet-control-layers .leaflet-control-layers-list,
-.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
-	display: none;
-	}
-.leaflet-control-layers-expanded .leaflet-control-layers-list {
-	display: block;
-	position: relative;
-	}
-.leaflet-control-layers-expanded {
-	padding: 6px 10px 6px 6px;
-	color: #333;
-	background: #fff;
-	}
-.leaflet-control-layers-scrollbar {
-	overflow-y: scroll;
-	overflow-x: hidden;
-	padding-right: 5px;
-	}
-.leaflet-control-layers-selector {
-	margin-top: 2px;
-	position: relative;
-	top: 1px;
-	}
-.leaflet-control-layers label {
-	display: block;
-	}
-.leaflet-control-layers-separator {
-	height: 0;
-	border-top: 1px solid #ddd;
-	margin: 5px -10px 5px -6px;
-	}
-
-/* Default icon URLs */
-.leaflet-default-icon-path {
-	background-image: url(images/marker-icon.png);
-	}
-
-
-/* attribution and scale controls */
-
-.leaflet-container .leaflet-control-attribution {
-	background: #fff;
-	background: rgba(255, 255, 255, 0.7);
-	margin: 0;
-	}
-.leaflet-control-attribution,
-.leaflet-control-scale-line {
-	padding: 0 5px;
-	color: #333;
-	}
-.leaflet-control-attribution a {
-	text-decoration: none;
-	}
-.leaflet-control-attribution a:hover {
-	text-decoration: underline;
-	}
-.leaflet-container .leaflet-control-attribution,
-.leaflet-container .leaflet-control-scale {
-	font-size: 11px;
-	}
-.leaflet-left .leaflet-control-scale {
-	margin-left: 5px;
-	}
-.leaflet-bottom .leaflet-control-scale {
-	margin-bottom: 5px;
-	}
-.leaflet-control-scale-line {
-	border: 2px solid #777;
-	border-top: none;
-	line-height: 1.1;
-	padding: 2px 5px 1px;
-	font-size: 11px;
-	white-space: nowrap;
-	overflow: hidden;
-	-moz-box-sizing: border-box;
-	     box-sizing: border-box;
-
-	background: #fff;
-	background: rgba(255, 255, 255, 0.5);
-	}
-.leaflet-control-scale-line:not(:first-child) {
-	border-top: 2px solid #777;
-	border-bottom: none;
-	margin-top: -2px;
-	}
-.leaflet-control-scale-line:not(:first-child):not(:last-child) {
-	border-bottom: 2px solid #777;
-	}
-
-.leaflet-touch .leaflet-control-attribution,
-.leaflet-touch .leaflet-control-layers,
-.leaflet-touch .leaflet-bar {
-	box-shadow: none;
-	}
-.leaflet-touch .leaflet-control-layers,
-.leaflet-touch .leaflet-bar {
-	border: 2px solid rgba(0,0,0,0.2);
-	background-clip: padding-box;
-	}
-
-
-/* popup */
-
-.leaflet-popup {
-	position: absolute;
-	text-align: center;
-	margin-bottom: 20px;
-	}
-.leaflet-popup-content-wrapper {
-	padding: 1px;
-	text-align: left;
-	border-radius: 12px;
-	}
-.leaflet-popup-content {
-	margin: 13px 19px;
-	line-height: 1.4;
-	}
-.leaflet-popup-content p {
-	margin: 18px 0;
-	}
-.leaflet-popup-tip-container {
-	width: 40px;
-	height: 20px;
-	position: absolute;
-	left: 50%;
-	margin-left: -20px;
-	overflow: hidden;
-	pointer-events: none;
-	}
-.leaflet-popup-tip {
-	width: 17px;
-	height: 17px;
-	padding: 1px;
-
-	margin: -10px auto 0;
-
-	-webkit-transform: rotate(45deg);
-	   -moz-transform: rotate(45deg);
-	    -ms-transform: rotate(45deg);
-	        transform: rotate(45deg);
-	}
-.leaflet-popup-content-wrapper,
-.leaflet-popup-tip {
-	background: white;
-	color: #333;
-	box-shadow: 0 3px 14px rgba(0,0,0,0.4);
-	}
-.leaflet-container a.leaflet-popup-close-button {
-	position: absolute;
-	top: 0;
-	right: 0;
-	padding: 4px 4px 0 0;
-	border: none;
-	text-align: center;
-	width: 18px;
-	height: 14px;
-	font: 16px/14px Tahoma, Verdana, sans-serif;
-	color: #c3c3c3;
-	text-decoration: none;
-	font-weight: bold;
-	background: transparent;
-	}
-.leaflet-container a.leaflet-popup-close-button:hover {
-	color: #999;
-	}
-.leaflet-popup-scrolled {
-	overflow: auto;
-	border-bottom: 1px solid #ddd;
-	border-top: 1px solid #ddd;
-	}
-
-.leaflet-oldie .leaflet-popup-content-wrapper {
-	-ms-zoom: 1;
-	}
-.leaflet-oldie .leaflet-popup-tip {
-	width: 24px;
-	margin: 0 auto;
-
-	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
-	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
-	}
-.leaflet-oldie .leaflet-popup-tip-container {
-	margin-top: -1px;
-	}
-
-.leaflet-oldie .leaflet-control-zoom,
-.leaflet-oldie .leaflet-control-layers,
-.leaflet-oldie .leaflet-popup-content-wrapper,
-.leaflet-oldie .leaflet-popup-tip {
-	border: 1px solid #999;
-	}
-
-
-/* div icon */
-
-.leaflet-div-icon {
-	background: #fff;
-	border: 1px solid #666;
-	}
-
-
-/* Tooltip */
-/* Base styles for the element that has a tooltip */
-.leaflet-tooltip {
-	position: absolute;
-	padding: 6px;
-	background-color: #fff;
-	border: 1px solid #fff;
-	border-radius: 3px;
-	color: #222;
-	white-space: nowrap;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	pointer-events: none;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-	}
-.leaflet-tooltip.leaflet-clickable {
-	cursor: pointer;
-	pointer-events: auto;
-	}
-.leaflet-tooltip-top:before,
-.leaflet-tooltip-bottom:before,
-.leaflet-tooltip-left:before,
-.leaflet-tooltip-right:before {
-	position: absolute;
-	pointer-events: none;
-	border: 6px solid transparent;
-	background: transparent;
-	content: "";
-	}
-
-/* Directions */
-
-.leaflet-tooltip-bottom {
-	margin-top: 6px;
-}
-.leaflet-tooltip-top {
-	margin-top: -6px;
-}
-.leaflet-tooltip-bottom:before,
-.leaflet-tooltip-top:before {
-	left: 50%;
-	margin-left: -6px;
-	}
-.leaflet-tooltip-top:before {
-	bottom: 0;
-	margin-bottom: -12px;
-	border-top-color: #fff;
-	}
-.leaflet-tooltip-bottom:before {
-	top: 0;
-	margin-top: -12px;
-	margin-left: -6px;
-	border-bottom-color: #fff;
-	}
-.leaflet-tooltip-left {
-	margin-left: -6px;
-}
-.leaflet-tooltip-right {
-	margin-left: 6px;
-}
-.leaflet-tooltip-left:before,
-.leaflet-tooltip-right:before {
-	top: 50%;
-	margin-top: -6px;
-	}
-.leaflet-tooltip-left:before {
-	right: 0;
-	margin-right: -12px;
-	border-left-color: #fff;
-	}
-.leaflet-tooltip-right:before {
-	left: 0;
-	margin-left: -12px;
-	border-right-color: #fff;
-	}
-
-  #mapid {
-    position: fixed;
-    top: 0;
-    left: 200;
-  }
-
-  @media (max-width: ${config.mobileDeviceWidth}px) {
-    #mapid {
-      height: 100vh!important;
-			left: 0;
-    }
-.leaflet-left {
-	left: 0;
-	}
-.leaflet-top {
-	top: 60;
-	}
-  }
-`;
-
-var __decorate$2 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-let WcSightseeingPage = class WcSightseeingPage extends h {
-    static get styles() {
-        return [mapStyles];
-    }
-    ;
-    connectedCallback() {
-        super.connectedCallback();
-    }
-    ;
-    renderMap() {
-        var _a;
-        const mapContainer = document.createElement('div');
-        mapContainer.setAttribute('id', 'mapid');
-        mapContainer.style.height = '100vh';
-        mapContainer.style.width = '100vw';
-        (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.append(mapContainer);
-        createToDoMap(mapContainer);
-    }
-    ;
-    render() {
-        return T `
-        ${this.renderMap()}
-    `;
-    }
-    ;
-};
-__decorate$2([
-    o$1('#mapid')
-], WcSightseeingPage.prototype, "mapid", void 0);
-WcSightseeingPage = __decorate$2([
-    n$1("wc-sightseeing-page")
-], WcSightseeingPage);
-
-const fotosFoldersStyles = r$1 `
-  .folder-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-top: 30px;
-    justify-content: center;
-  }
-
-  .folder {
-    margin: 10px;
-    border-radius: 4px;
-    box-shadow: var(--fuerte-box-shadow);
-    cursor: pointer;
-  }
-
-  img {
-    width: auto;
-    height: 200px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-  }
-
-  .subtitle {
-    font-family: var(--fuerte-text-font);
-    background-color: var(--fuerte-brown);
-    padding: 7px 10px;
-    word-wrap: break-word;
-    font-size: 12px;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    text-align: center;
-  }
-
-  .back-to-fotos {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-
-  @media (max-width: ${config.mobileDeviceWidth}px) {
-    img {
-      width: auto;
-      height: 100px;
-    }
-  }
-`;
-
-var __decorate$1 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __awaiter$1 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-let WcFotosFolders = class WcFotosFolders extends h {
-    constructor() {
-        super(...arguments);
-        this.showFotostory = false;
-    }
-    static get styles() {
-        return [fotosFoldersStyles];
-    }
-    ;
-    connectedCallback() {
-        super.connectedCallback();
-        this.loadFotos();
-    }
-    ;
-    loadFotos() {
-        return __awaiter$1(this, void 0, void 0, function* () {
-            const fotos = [];
-            try {
-                yield getTravelDocs()
-                    .then((data) => {
-                    data.forEach((doc) => fotos.push(doc));
-                })
-                    .catch((error) => console.log('no traveldocs found', error));
-            }
-            catch (error) {
-                console.log(error);
-            }
-            this.fotos = fotos;
-        });
-    }
-    ;
-    renderFotostory(fotostory) {
-        this.fotostory = fotostory;
-        this.showFotostory = true;
-    }
-    ;
-    render() {
-        return T `
-      ${this.showFotostory ? T `
-        <p style="display: flex; flex-direction: row; align-items: center; justify-content: center; padding-top: 30px; color: #555">
-          <wc-icon @click=${() => this.showFotostory = false} primaryColor="gray" icon="angle-left" style="cursor: pointer; width: 25px; height: 25px; margin-right: 10px;"></wc-icon>
-          ${this.fotostory.date}
-        </p>
-        ${new WcFotostory(this.fotostory)}
-        <div class="back-to-fotos" @click=${() => this.showFotostory = false}>
-          <wc-icon primaryColor="gray" icon="angle-left" style="width: 25px; height: 25px; margin-right: 10px;"></wc-icon>
-          Zurück zu Fotos
-        </div>
-        ` : T `
-        <div class="folder-container">
-        ${this.fotos.sort((b, a) => new Date(a.date).getTime() - new Date(b.date).getTime()).map(f => T `
-          <div class="folder" @click=${() => this.renderFotostory(f)}>
-            <img src="https://raw.githubusercontent.com/anjakhan/fuerteventura/main/assets/${f.foldername}/${f.image}" alt="folder">
-            <div class="subtitle">${config.isMobile ? f.date : f.foldername}</div>
-          </div>
-        `)}
-      </div>`}
-    `;
-    }
-    ;
-};
-__decorate$1([
-    e({ type: Array })
-], WcFotosFolders.prototype, "fotos", void 0);
-__decorate$1([
-    e({ type: Object })
-], WcFotosFolders.prototype, "fotostory", void 0);
-__decorate$1([
-    e({ type: Boolean })
-], WcFotosFolders.prototype, "showFotostory", void 0);
-WcFotosFolders = __decorate$1([
-    n$1("wc-fotos-folders")
-], WcFotosFolders);
 
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4559,75 +1117,90 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-let WcAppLayout = class WcAppLayout extends h {
+let WcDialogResetPassword = class WcDialogResetPassword extends h {
     constructor() {
-        super(...arguments);
-        this.selectedDrawer = 'latest-story';
+        super();
+        this.email = "";
+        this.errorMsg = "";
+        this.backdrop = new WcBackdrop();
     }
     static get styles() {
-        return [layoutStyles, navbarStyles];
+        return [dialogStyles, r$1 `
+      .modal {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+      }
+
+      .modal-header {
+        margin-top: 0px;
+      }
+      
+      .error-msg {
+        color: #d20064;
+        font-size: 12px;
+        font-family: var(--printess-text-font);
+      }
+
+      input, input:hover {
+        border: 1px solid #ccc;
+      }
+    `];
     }
-    ;
+    connectedCallback() {
+        super.connectedCallback();
+    }
+    showDialog() {
+        document.body.appendChild(this.backdrop);
+        document.body.appendChild(this);
+    }
+    closeDialog() {
+        document.body.removeChild(this.backdrop);
+        document.body.removeChild(this);
+    }
+    sendResetEmail() {
+        if (!this.email) {
+            this.errorMsg = 'Please enter an email address!';
+            return;
+        }
+        if (this.email.indexOf('@') === -1) {
+            this.errorMsg = 'Please enter a valid email address!';
+            return;
+        }
+        sendPasswordResetMail(this.email);
+        this.closeDialog();
+    }
     render() {
         return T `
-        <div class="account-layout">
-            <header>
-                <wc-icon primaryColor="island" icon="island" class="island"></wc-icon><h3>Fuerteventura</h3><div style="min-width: 60px;"></div>
-                <div class="user-icon" style="position: fixed; right: 40px; top; 0px; z-index: 99;">
-                    <wc-icon @mousedown=${(e) => this.userClick(e)} primaryColor="island" icon="user-solid" style="width: 30px; height: 25px; cursor: pointer;"></wc-icon>
-                </div>
-            </header>
+      <div class="modal">
+      
+        <div class="modal-wrapper pink">
+          <div class="modal-header">
+            <slot name="title" class="modal-title">Forgot your password?</slot>
+            <wc-icon primaryColor="arrows" icon="close" @click=${() => this.closeDialog()}></wc-icon>
+          </div>
 
-            <div class="drawer">${this.renderDrawer()}</div>  
-            
-            <div id="user-content">
-                ${this.getUserContent()}
-            </div>
+          <div class="modal-content">
+            <p>No worry! Enter your email address and we will send you a link to reset your password.</p>
+            <span class="error-msg" style="display: ${this.errorMsg ? 'block' : 'none'}"> ${this.errorMsg}</span>
+            <input type="email" placeholder="Email address*" @change=${(e) => this.email = e.target.value}>
+            <button class="submit" @click=${this.sendResetEmail}>Send Reset Link</button>
+          </div>
         </div>
-        `;
+      </div>
+    `;
     }
-    ;
-    renderDrawer() {
-        const td = new WcAppDrawer(this.selectedDrawer);
-        td.getDrawerSelection(selectedDrawer => {
-            this.selectedDrawer = selectedDrawer;
-        });
-        return td;
-    }
-    ;
-    getUserContent() {
-        switch (this.selectedDrawer) {
-            case ('latest-story'): return new WcFotosFolders();
-            case ('trip-details'): return new WcTraveldetailsPage();
-            case ('foto-preview'): return new WcFotoPreview();
-            case ('upload'): return new WcUploadPage();
-            case ('map'): return new WcFuerteMapPage();
-            case ('sightseeing'): return new WcSightseeingPage();
-        }
-    }
-    ;
-    userClick(e) {
-        showCtxMenu(e, [
-            {
-                caption: "Log out",
-                callback: () => {
-                    this.logoutUser();
-                }
-            },
-        ]);
-    }
-    ;
-    logoutUser() {
-        logoutFunc();
-    }
-    ;
 };
 __decorate([
     e({ type: String })
-], WcAppLayout.prototype, "selectedDrawer", void 0);
-WcAppLayout = __decorate([
-    n$1("wc-app-layout")
-], WcAppLayout);
+], WcDialogResetPassword.prototype, "email", void 0);
+__decorate([
+    e({ type: String })
+], WcDialogResetPassword.prototype, "errorMsg", void 0);
+WcDialogResetPassword = __decorate([
+    n$1("wc-dialog-reset-password")
+], WcDialogResetPassword);
 
 r$1 `
   :host, :host * {
@@ -5674,28 +2247,57 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var _a, _b, _c;
+var _a, _b, _c, _d, _e;
+const adm = {
+    useAdminMode: false,
+    canUseAdminMode: false,
+    isPinnedUser: false
+};
+let currentUser = {
+    id: '',
+    displayName: '',
+    eMailAddress: '',
+    isEmailAddressVerified: false,
+    lastLogin: new Date(),
+    code: '',
+    isActivated: false
+};
 const wcAppLayout = new WcAppLayout();
-let appUser = 'user';
 function setDisplay(id, value) {
     const node = document.getElementById(id);
     if (node) {
         node.style.display = value;
     }
 }
-(_a = document.getElementById("createAccountCtrl")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
-    var _d, _e;
-    const email = (_d = document.getElementById("emailCtrl")) === null || _d === void 0 ? void 0 : _d.value;
-    const pwd = (_e = document.getElementById("passwordCtrl")) === null || _e === void 0 ? void 0 : _e.value;
+(_a = document.getElementById("passwordCtrl")) === null || _a === void 0 ? void 0 : _a.addEventListener("keyup", (event) => __awaiter(void 0, void 0, void 0, function* () {
+    var _f;
+    if (event.key === "Enter" || event.which === 13) {
+        event.preventDefault();
+        (_f = document.getElementById("createAccountCtrl")) === null || _f === void 0 ? void 0 : _f.click();
+    }
+}));
+(_b = document.getElementById("createAccountCtrl")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
+    var _g, _h;
+    const email = (_g = document.getElementById("emailCtrl")) === null || _g === void 0 ? void 0 : _g.value;
+    const pwd = (_h = document.getElementById("passwordCtrl")) === null || _h === void 0 ? void 0 : _h.value;
     yield signinUser(email, pwd);
 }));
-(_b = document.getElementById("google-signin")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
+(_c = document.getElementById("google-signin")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
     yield signinWithGoogle();
 }));
 firebase.auth().onAuthStateChanged(function (user) {
     return __awaiter(this, void 0, void 0, function* () {
         if (user) {
-            user.email === 'trulli90@gmail.com' ? appUser = 'admin' : appUser = 'user';
+            const localDate = new Date(user.metadata.lastSignInTime);
+            currentUser = {
+                id: user.uid,
+                displayName: user.displayName,
+                eMailAddress: user.email,
+                isEmailAddressVerified: user.emailVerified,
+                lastLogin: localDate,
+                code: user.providerData[0].photoURL,
+                isActivated: false
+            };
             setDisplay("userAccount", "");
             setDisplay("loginPage", "none");
             const controlHost = document.getElementById('userAccount');
@@ -5711,13 +2313,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         }
     });
 });
-const logoutFunc = () => {
-    (() => __awaiter(void 0, void 0, void 0, function* () {
-        yield firebase.auth().signOut();
-        window.location.reload();
-    }))();
-};
-(_c = document.getElementById("eye")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", () => {
+(_d = document.getElementById("eye")) === null || _d === void 0 ? void 0 : _d.addEventListener("click", () => {
     const eye = document.getElementById("eye");
     const input = document.getElementById("passwordCtrl");
     if (input.type === "password") {
@@ -5731,5 +2327,10 @@ const logoutFunc = () => {
         input.type = "password";
     }
 });
+(_e = document.getElementById("password-reset")) === null || _e === void 0 ? void 0 : _e.addEventListener("click", () => {
+    const td = new WcDialogResetPassword();
+    td.showDialog();
+    return td;
+});
 
-export { appUser, logoutFunc };
+export { adm, currentUser };
