@@ -1,5 +1,11 @@
 import { signinWithGoogle, createUser, firebase } from "./code/firebase";
 
+// const errorContainer = document.getElementById("errorContainer") as HTMLDivElement;
+
+// function showError(message: string) {
+//   errorContainer.textContent = message;
+// }
+
 function setDisplay(id: string, value: string): void {
   const node = document.getElementById(id);
 

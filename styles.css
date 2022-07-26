@@ -1,139 +1,153 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&&family=Ubuntu:wght@400;500;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
-
 :root {
-  --printess-pink: #e35fbc;
-  --printess-lightpink: #ffe8f8;
-  --printess-pinkHover: #e447b6;
-  --printess-green: #a0cc00;
-  --printess-lightgreen: #f2f6db;
-  --printess-greenHover: #95be01;
-  --printess-blue: #4c9ce2;
-  --printess-lightblue: #e5eefa;
-  --printess-blueHover: #3289d6;
-  --printess-magenta: #a2256b;
-  --printess-lightmagenta: #f2dce5;
-  --printess-magentaHover: #910c57;
-  --printess-red: #d20064;
-  --printess-lightred: #f2dce5;
-  --printess-redHover: #c0005d;
-  --printess-navbar-blue: #78a1ca;
-
-  --printess-font: Ubuntu, sans-serif;
-  --printess-button-font: 'Noto Sans', sans-serif;
-  --printess-header-font: Ubuntu, sans-serif;
-  --printess-text-font: 'Noto Sans', sans-serif;
-
-  --printess-properties-width: 442px;
-    --printess-resourcebar-width: 32px;
-    --printess-toolbar-width: 38px;
-    --printess-open-toolbar-width: 72px;
-    --printess-top-tabs-height: 36px;
-    --printess-dialog-padding: 20px;
-    --printess-anchor-size: 10px; /* small boxes in anchor grid */
-    /**** PATH EDITOR  ******/
-    --printess-path-editor-cover-bg: rgba(0,0,0,0.1);
-    --printess-path-editor-cover-border: 1px solid rgba(0,0,0,0.5);
-    --printess-path-editor-path-color: #21b7ff;
-    --printess-path-editor-disabled-path-color: #bbbbbb;
-    /**** Z-INDEX *****/
-    --printess-z-index-ui-hint: 9987;
-    --printess-z-index-context-menu: 9990;
-    --printess-z-index-box-drag: 9985;
-    --printess-z-index-box-selection: 9980;
-    --printess-z-index-click-action-boxes: 9975;
-    --printess-z-index-page-border: 9970;
-    --printess-z-index-pasteboard: 9960;
-    --printess-z-index-bleed: 9962;
-    
-    
-    /*** FRAME  ***/
-    --printess-frame-mover-size: 5px;
-    --printess-extra-mover-catch-offset: -14px;
-    --printess-cropper-large-side: 15px;
-    --printess-cropper-small-side: 5px;
-    --printess-annotationColor: DarkSlateBlue;
-    --printess-rubberBandColor: red;
-    --printess-resource-toolbar-width: 32px;
-    --printess-resource-panel-initial-width: 200px;
-    /* Mobile buyer side */ 
-    /***** FORM PADDING *****/
-    --printess-input-top-padding: 0; /*8px;*/ 
- 
-    /***** TEXT SIZE *****/
-    --printess-annotationSize: 10px;
-    --printess-labelSize: 11px;
-    --printess-inputSize: 12px;
-    --printess-textSize: 14px;
-    --printess-headlineSize: 18px;
- 
-    /****** HEAD-TOOLBAR *******/ 
-    --printess-headToolbarColor: white;
-    --printess-headToolbarColorHover: #ffcccc;
-    --printess-headToolbarBackgroundColor:   rgb(150, 150, 150);
-    --printess-headToolbarBorderColor:   #444444; 
-    /*** VAADIN COLOR MAPPING ***/
-    --lumo-primary-text-color: var(--printess-headlineColor);
-    --lumo-primary-color: var(--printess-headlineColor);
-    --lumo-secondary-text-color: var(--printess-textColor) ;
-    --lumo-disabled-text-color: var(--printess-textColorDisabled);  
-    --lumo-body-text-color: var(--printess-inputColor);
-    --lumo-base-color: var(--printess-panelBackground);
-    --lumo-contrast-60pct: var(--printess-textColor);
-    --lumo-contrast-5pct: var(--printess-inputBackgroundDisabled); /* input disabled background color */ 
-    --lumo-contrast-10pct: var(--printess-inputBackground); /*rgba(255,255,255,0.2);*/ /* input background-color */
-    --lumo-contrast-20pct: var(--printess-radioBackground); /*rgba(255,255,255,0.2);*/ /* input background-color used in radio buttons */
-    --lumo-contrast-30pct: var(--printess-radioBackgroundHover); /*rgba(255,255,255,0.2);*/ /* input background-color used in radio buttons */
-    --lumo-space-m: var(--printess-input-top-padding); /* padding-top of vaadin-text-box */
-    --vaadin-text-field-default-width: 50px; /* make smaller to addopt to 100% later */
-    /*input and button captions */ 
-    --lumo-font-size-s: var(--printess-inputSize); /* input box size */
-    --lumo-font-size-m:  var(--printess-inputSize); /* select-box does not react to theme=small */
-    /*labels*/
-    --lumo-font-size-xs:  var(--printess-labelSize); 
-   
-    /* MOBILE THEME DEFAULT */ 
-    --printess-maxContrastColor: white;
-    --printess-maxContrastColorInverse: black;
-   
-    /****** TEXT COLORS ********/
-    --printess-headlineColor: #ff82d7;  
-    --printess-headlineColorInverse: white;  
-    --printess-headlineColorHover: #ffbeea;  
-    --printess-textColor:#fff;
-    --printess-textColorDisabled: #ddd;
-    --printess-menuColorDisabled: #aaa;
-    --printess-textColorHover: #fff;
-    
-    --printess-inputColor: white;
-    --printess-inputColorDisabled:  rgb(200,200,200);
-    --printess-inputBackground: rgba(255, 255, 255, 0.1);
-    --printess-radioBackground: rgba(255, 255, 255, 0.2);
-    --printess-radioBackgroundHover: rgba(255, 255, 255, 0.3);
-    --printess-inputBackgroundDisabled: rgba(255, 255, 255, 0.05); 
-    /****** FAT-BUTTON *****/
-    --printess-fatButtonBackground: var(--printess-panelBackground);
-    --printess-fatButtonBackgroundHover: var( --panelBackgroundHover:);
-    --printess-fatButtonBackgroundSelected: var(--printess-panelBackgroundSelected);
-    --printess-fatButtonForeground: var(--printess-textColor);
-    --printess-fatButtonForegroundSelected: var(--printess-headlineColor);
-     /****** SIDE-TOOLBARs *******/ 
-    --printess-toolbarColor:  #fff;
-    --printess-toolbarColorHover: #fff;
-    --printess-toolbarBackgroundSelected: #000;
-    --printess-toolbarBackground: #333; 
-    --printess-toolbarBackgroundHover: #222;
-    --printess-toolbarBorderColor:  Indigo; /* black */
-     /*** PANEL COLORS ***/
-    --printess-panelBackground: #15518e;
-    --printess-panelBackgroundSelected: #2a2a2a;
-    --printess-panelAnchorMixed: #934a7c;
-    --printess-panelBackgroundHover: #222;
-    --printess-slider-rail: hsl(216, 85%, 68%);
-    --printess-frameColor: #21b7ff;
-    --printess-frameColorHover:  #1ca0df;
+  --fuerte-background-color: #43ACF0;
+  --fuerte-blue: #82B8E0;
+  --fuerte-aqua: #00D3E0;
+  --fuerte-brown: #FFD370;
+  --fuerte-light: #fff3d6;
+  --fuerte-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 * {
   box-sizing: border-box;
+}
+
+body {
+  font-family: Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#loginPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #fff3d6;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding-bottom: 100px;
+}
+
+@media screen and (max-width: 950px) {
+  #loginPage {
+    padding: 20px;
+    justify-content: flex-start;
+  }
+}
+
+#loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+
+.welcome {
+  font-family: Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 60px;
+  background-color: #43A8FE;
+  color: white;
+  height: 100%;
+}
+
+@media (max-width: 950px) {
+  .welcome {
+    display: none;
+  }
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 50px;
+}
+
+.text {
+  color: #555;
+  font-family: Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#errorContainer {
+  margin-top: 10px;
+}
+
+#errorWrapper {
+  font-family: Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #d20064;
+  font-size: 10px;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+}
+
+#signinContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+input {
+  color: #555;
+  width: 220px;
+  height: 40px;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+
+.password {
+  position: relative;
+}
+
+#passwordCtrl {
+  padding-right: 35px;
+}
+
+.fa {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  color: #777;
+  cursor: pointer;
+}
+
+button {
+  width: 220px;
+  height: 40px;
+  padding: 8px 16px;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+  font-family: Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+  color: white;
+  background-color: #555;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #444;
+}
+
+#google-signin {
+  background-color: #43A8FE;
+  color: white;
+}
+
+#google-signin:hover {
+  background-color: #39a1fc;
 }

@@ -9,12 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 export const firebase = window.firebase;
 const config = {
-    apiKey: "AIzaSyCDUKsrnycenQiUaqr3fQ2cmj4bnhOtta4",
-    authDomain: "phone-auth-test-35d0b.firebaseapp.com",
-    projectId: "phone-auth-test-35d0b",
-    storageBucket: "phone-auth-test-35d0b.appspot.com",
-    messagingSenderId: "78922657454",
-    appId: "1:78922657454:web:ce7cc4d2823e6570dbc73f"
+    apiKey: "AIzaSyBUbyQiqE7TSAS2J5iIVII1Z99tKdd0AuE",
+    authDomain: "fuerteventura-d4e75.firebaseapp.com",
+    projectId: "fuerteventura-d4e75",
+    storageBucket: "fuerteventura-d4e75.appspot.com",
+    messagingSenderId: "378393506142",
+    appId: "1:378393506142:web:4d16e60264d0388a685fcf"
 };
 firebase.initializeApp(config);
 const checkErrorCode = (errorCode) => {
@@ -55,12 +55,6 @@ export function signinWithGoogle() {
         }
     });
 }
-export function signinWithPhone() {
-    return __awaiter(this, void 0, void 0, function* () {
-        console.log("phone signin");
-        firebase.auth().useDeviceLanguage();
-    });
-}
 export function createUser(name, email, password) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -75,6 +69,7 @@ export function createUser(name, email, password) {
         }
     });
 }
+;
 export function signinUser(email, password) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -88,43 +83,57 @@ export function signinUser(email, password) {
         }
     });
 }
-export function changePassword(password) {
+;
+export const createTravelDocument = (traveldoc) => {
+    firestore.collection("fuerte").add({
+        id: '',
+        headline: traveldoc.headline,
+        story: traveldoc.story,
+        foldername: traveldoc.date + '_' + traveldoc.foldername,
+        date: traveldoc.date,
+        location: traveldoc.location,
+        popup: traveldoc.popup,
+        image: traveldoc.image
+    })
+        .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+        alert('Fotostory created');
+        firestore.collection('fuerte').doc(`${docRef.id}`).set({
+            id: docRef.id
+        }, { merge: true });
+    })
+        .catch((error) => {
+        console.error("Error adding document: ", error);
+    });
+};
+export const getTravelDocs = () => {
+    const docs = firestore.collection("fuerte").get()
+        .then((querySnapshot) => {
+        return querySnapshot.docs.map((doc) => doc.data());
+    });
+    return docs;
+};
+export const uploadImage = (file, foldername) => {
+    const storage = firebase.storage().ref(`${foldername}/${file.name}`);
+    storage.put(file);
+};
+export const dowloadFile = (filename) => {
+    const storageRef = firebase.storage().ref();
+    return storageRef.child(filename).getDownloadURL();
+};
+export function downloadImageURL(foldername = '2021-06-06_costa_testing') {
     return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const user = firebase.auth().currentUser;
-            yield user.updatePassword(password);
-            alert("Password changed successfully!");
-        }
-        catch (error) {
-            alert(error.message);
-            throw error;
-        }
+        const listOfUrls = [];
+        var storageRef = firebase.storage().ref(foldername);
+        storageRef.listAll().then((res) => {
+            let promises = res.items.forEach((item) => item.getDownloadURL());
+            Promise.all(promises).then((downloadURLs) => {
+                console.log('res 1', downloadURLs);
+                listOfUrls.push(downloadURLs);
+            });
+        });
+        return listOfUrls;
     });
 }
-export function sendPasswordResetMail(email = firebase.auth().currentUser.email) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield firebase.auth().sendPasswordResetEmail(email);
-        }
-        catch (error) {
-            const errorCode = error.code;
-            console.log(errorCode);
-            alert(error.message);
-            throw error;
-        }
-    });
-}
-export function deleteUser() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const user = firebase.auth().currentUser;
-            yield user.delete();
-        }
-        catch (error) {
-            const errorCode = error.code;
-            console.log(errorCode);
-            throw error;
-        }
-    });
-}
+export const firestore = firebase.firestore();
 //# sourceMappingURL=firebase.js.map

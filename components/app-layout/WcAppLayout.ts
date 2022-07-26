@@ -1,86 +1,79 @@
-import { LitElement, html, TemplateResult, css } from "lit";
+import { LitElement, html, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { currentUser, logoutFunc, User } from "../../adminIndex";
+
+import { logoutFunc } from '../../adminIndex';
+import { showCtxMenu } from "../../shared/contextMenu";
 
 import "../icons/WcIcon";
 
+import { layoutStyles, navbarStyles } from './layout-styles';
+import { WcAppDrawer } from "../app-drawer/WcAppDrawer";
+import { WcUploadPage } from "../../pages/fotoupload-page/WcUploadPage";
+import { WcFotoPreview } from "../../pages/fotopreview-page/WcFotoPreview";
+import { WcTraveldetailsPage } from "../../pages/traveldetails-page/WcTraveldetailsPage";
+import { WcFuerteMapPage } from "../../pages/fuerte-map/WcFuerteMapPage";
+import { WcSightseeingPage } from "../../pages/sightseeing-page/WcSightseeingPage";
+import { WcFotosFolders } from "../../pages/latest-story/WcFotosFolders";
+
 @customElement("wc-app-layout")
 export class WcAppLayout extends LitElement {
+    @property({ type: String }) selectedDrawer: string = 'latest-story';
 
-  static get styles() {
-    return [css`
-      .account-layout {
-        display: grid;
-        grid-template-rows: 80px 1fr;
-        background-color: rgba(208, 4, 155, 0.04);
-        height: 100%;
-        width: 100%;
-      }
-      header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 20px;
-        border-bottom: 1px solid #555;
-        background-color: var(--printess-navbar-blue);
-        color: white;
-        font-family: var(--printess-font);
-      }
-      .selection-wrapper {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-      }
-      button {
-        cursor: pointer;
-      }
-      .btn {
-        width: 500px;
-        height: 500px;
-        background: var(--printess-lightpink);
-        border: 1px solid #555;
-        border-radius: 4px;
-      }
-    `];
-  }
+    static get styles() {
+        return [layoutStyles, navbarStyles];
+    };
 
-  @property({ type: Object }) currentUser: User = {
-    id: '',
-    displayName: '',
-    eMailAddress: '',
-    phone: '',
-    isEmailAddressVerified: false,
-    lastLogin: new Date(),
-    code: '',
-    isActivated: false
-  };
+    render(): TemplateResult {
+        return html`
+        <div class="account-layout">
+            <header>
+                <wc-icon primaryColor="island" icon="island" class="island"></wc-icon><h3>Fuerteventura</h3><div style="min-width: 60px;"></div>
+                <div class="user-icon" style="position: fixed; right: 40px; top; 0px; z-index: 99;">
+                    <wc-icon @mousedown=${(e: MouseEvent): void => this.userClick(e)} primaryColor="island" icon="user-solid" style="width: 30px; height: 25px; cursor: pointer;"></wc-icon>
+                </div>
+            </header>
 
-  debug = window.location.hostname === 'localhost' || window.location.href.indexOf('debug=1') > 0
-
-  connectedCallback(): void {
-    super.connectedCallback();
-
-    this.currentUser = currentUser;
-  }
-
-  render(): TemplateResult {
-    return html`
-      <div class="account-layout">
-        <header>
-          <div>User: ${this.currentUser.phone || this.currentUser.eMailAddress}</div>
-          <button @click=${logoutFunc}>Logout</button>
-        </header>
-
-        <div class="selection-wrapper">
-          <button class="btn go-to-account">
-            GO TO ACCOUNT PORTAL
-          </button>
-
-          <button class="btn go-to-editor">
-            GO TO EDITOR
-          </button>
+            <div class="drawer">${this.renderDrawer()}</div>  
+            
+            <div id="user-content">
+                ${this.getUserContent()}
+            </div>
         </div>
-      </div>
-    `;
-  }
-}
+        `;
+    };
+
+    renderDrawer(): LitElement {
+        const td = new WcAppDrawer(this.selectedDrawer);
+        td.getDrawerSelection(selectedDrawer => {
+            this.selectedDrawer = selectedDrawer;
+        });
+        return td;
+    };
+
+    getUserContent(): LitElement | TemplateResult | void {
+        switch (this.selectedDrawer) {
+            case ('latest-story'): return new WcFotosFolders();
+            case ('trip-details'): return new WcTraveldetailsPage();
+            case ('foto-preview'): return new WcFotoPreview();
+            case ('upload'): return new WcUploadPage();
+            case ('map'): return new WcFuerteMapPage();
+            case ('sightseeing'): return new WcSightseeingPage();
+            default: ('welcome');
+        };
+    };
+
+    userClick(e: MouseEvent): void {
+        showCtxMenu(e, [
+            {
+                caption: "Log out",
+                callback: () => {
+                    this.logoutUser();
+                }
+            },
+        ]);
+    };
+
+    logoutUser() {
+        logoutFunc();
+    };
+};
